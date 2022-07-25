@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP10101Eric/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP10101Eric/app/src/main/res/layout/new_pic.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP10101Eric/app/src/main/res/xml/file_paths.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/activity_login.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/activity_main.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/cardview_att_pictrue.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_login.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_result.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_take_picture.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/new_pic.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/activity_main.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/cardview_att_pictrue.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/cardview_att_picture_project.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/fragment_dataquery.xml" value="0.176" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/fragment_forget.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/fragment_forget_2.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/fragment_frontpage.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/fragment_login.xml" value="0.264" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/fragment_member_list.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/fragment_project_list.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/fragment_result.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/fragment_sign.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/fragment_take_picture.xml" value="0.264" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/menu/menu_bottom.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/drawable/baseline_airplane_ticket_20.xml" value="0.232" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/drawable/baseline_airplane_ticket_black.xml" value="0.232" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/drawable/baseline_airplane_ticket_white.xml" value="0.232" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/drawable/baseline_maps_home_work_24.xml" value="0.232" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/drawable/baseline_maps_home_work_black.xml" value="0.232" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/drawable/baseline_maps_home_work_white.xml" value="0.232" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/activity_main.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/cardview_att_pictrue.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/cardview_att_picture_project.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/fragment_forget.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/fragment_forget_2.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/fragment_frontpage.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/fragment_login.xml" value="0.264" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/fragment_member_list.xml" value="0.203125" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/fragment_project_list.xml" value="0.21963824289405684" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/fragment_result.xml" value="0.21770833333333334" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/fragment_sign.xml" value="0.19947916666666668" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/layout/fragment_take_picture.xml" value="0.264" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/menu/menu_bottom.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_OLD/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.232" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

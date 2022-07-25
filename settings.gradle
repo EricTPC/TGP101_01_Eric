@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TGP101 01 Eric"
 include ':app'
-include ':app'
