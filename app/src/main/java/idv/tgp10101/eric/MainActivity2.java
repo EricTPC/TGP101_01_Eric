@@ -1,16 +1,14 @@
-package idv.tgp10101.tgp101_01_eric;
+package idv.tgp10101.eric;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
-
-    private static final android.R.attr R = ;
+public class MainActivity2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
     }
 }

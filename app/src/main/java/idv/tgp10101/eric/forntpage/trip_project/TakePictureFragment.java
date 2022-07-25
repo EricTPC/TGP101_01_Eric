@@ -1,4 +1,4 @@
-package idv.tgp10101.eric.trip_project;
+package idv.tgp10101.eric.forntpage.trip_project;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -42,7 +42,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

@@ -1,4 +1,4 @@
-package idv.tgp10101.eric.trip_project;
+package idv.tgp10101.eric.forntpage.forntpage_project;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,13 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.NumberPicker;
 
 import idv.tgp10101.eric.R;
 
-public class ProjectListFragment extends Fragment {
-    Activity activity;
-
+public class FrontpageFragment extends Fragment {
+    private Activity activity;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +24,7 @@ public class ProjectListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_project_list, container, false);
+        return inflater.inflate(R.layout.fragment_frontpage, container, false);
     }
 
     @Override
@@ -34,5 +32,4 @@ public class ProjectListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         activity = getActivity();
     }
-
 }

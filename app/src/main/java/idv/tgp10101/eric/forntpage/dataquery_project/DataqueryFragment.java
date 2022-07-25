@@ -1,6 +1,5 @@
-package idv.tgp10101.eric.members_projrct;
+package idv.tgp10101.eric.forntpage.dataquery_project;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,24 +13,20 @@ import android.view.ViewGroup;
 import idv.tgp10101.eric.R;
 
 
-public class MemberListFragment extends Fragment {
-    Activity activity;
+public class DataqueryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_member_list, container, false);
+        return inflater.inflate(R.layout.fragment_dataquery, container, false);
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        activity = getActivity();
     }
 }

@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".trip_project.ProjectListFragment">
+    tools:context=".forntpage.trip_project.ProjectListFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

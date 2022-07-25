@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/takePictureFragment"
-        android:name="idv.tgp10101.eric.trip_project.TakePictureFragment"
+        android:name="idv.tgp10101.eric.forntpage.trip_project.TakePictureFragment"
         android:label="fragment_take_picture"
         tools:layout="@layout/fragment_take_picture" />
     <fragment

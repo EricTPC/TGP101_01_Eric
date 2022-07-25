@@ -1,4 +1,4 @@
-package idv.tgp10101.eric.forntpage_project;
+package idv.tgp10101.eric.forntpage.trip_project;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,8 +13,9 @@ import android.view.ViewGroup;
 
 import idv.tgp10101.eric.R;
 
-public class FrontpageFragment extends Fragment {
-    private Activity activity;
+public class ProjectListFragment extends Fragment {
+    Activity activity;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,7 @@ public class FrontpageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_frontpage, container, false);
+        return inflater.inflate(R.layout.fragment_project_list, container, false);
     }
 
     @Override
@@ -32,4 +33,5 @@ public class FrontpageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         activity = getActivity();
     }
+
 }
