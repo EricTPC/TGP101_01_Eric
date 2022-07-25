@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "344024856387",
+    "project_id": "tgp101androidproject",
+    "storage_bucket": "tgp101androidproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344024856387:android:9b3159b014412a863561f6",
+        "android_client_info": {
+          "package_name": "idv.tgp10101.eric"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344024856387-qb54mvhrmf69v2fs7dmm4h4jbalr0df4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJH2_PUCLi_PTTnPH4p3b5lLtQIxctmAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344024856387-qb54mvhrmf69v2fs7dmm4h4jbalr0df4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

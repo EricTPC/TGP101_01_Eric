@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/it_Home"
+        android:icon="@drawable/twotone_maps_home_work_20"
+        android:title="首頁" />
+    <item
+        android:id="@+id/it_Project"
+        android:icon="@drawable/twotone_airplane_ticket_20"
+        android:title="行程規劃" />
+    <item
+        android:id="@+id/it_Info"
+        android:icon="@drawable/twotone_travel_explore_20"
+        android:title="資料查詢" />
+    <item
+        android:id="@+id/it_Member"
+        android:icon="@drawable/twotone_manage_accounts_20"
+        android:title="會員專區" />
+</menu>

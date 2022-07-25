@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_menu_bottom"
+    app:startDestination="@id/it_Project">
+    <fragment
+        android:id="@+id/it_Home"
+        android:name="idv.tgp10101.eric.forntpage_project.FrontpageFragment"
+        android:label="fragment_frontpage"
+        tools:layout="@layout/fragment_frontpage" />
+    <fragment
+        android:id="@+id/it_Project"
+        android:name="idv.tgp10101.eric.trip_project.ProjectListFragment"
+        android:label="fragment_project_list"
+        tools:layout="@layout/fragment_project_list" />
+    <fragment
+        android:id="@+id/it_Info"
+        android:name="idv.tgp10101.eric.dataquery_project.DataqueryFragment"
+        android:label="fragment_dataquery"
+        tools:layout="@layout/fragment_dataquery" />
+    <fragment
+        android:id="@+id/it_Member"
+        android:name="idv.tgp10101.eric.members_projrct.MemberListFragment"
+        android:label="fragment_member_list"
+        tools:layout="@layout/fragment_member_list" />
+</navigation>

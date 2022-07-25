@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login_project.Forget_2Fragment" >
+
+    <TextView
+        android:id="@+id/tv_Forget2_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="忘記密碼"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_Forget2_NewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintStart_toEndOf="@+id/tv_Forget2_NewPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Forget2_Title" />
+
+    <TextView
+        android:id="@+id/tv_Forget2_NewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="登入密碼："
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_Forget2_NewPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_Forget2_NewPassword" />
+
+    <TextView
+        android:id="@+id/tv_Forget2_NewPassword2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="再次輸入："
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_Forget2_NewPassword2"
+        app:layout_constraintEnd_toEndOf="@+id/tv_Forget2_NewPassword"
+        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintStart_toStartOf="@+id/tv_Forget2_NewPassword"
+        app:layout_constraintTop_toTopOf="@+id/et_Forget2_NewPassword2" />
+
+    <EditText
+        android:id="@+id/et_Forget2_NewPassword2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/et_Forget2_NewPassword"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_Forget2_NewPassword"
+        app:layout_constraintTop_toBottomOf="@+id/et_Forget2_NewPassword" />
+
+    <TextView
+        android:id="@+id/tv_Forget2_Rule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="輸入密碼規則如下：\n　　1.長度至少 8 字元\n　　2.包含大寫英文字母\n　　3.包含小寫英文字母\n　　4.包含數字\n　　5.不含空白字元及特殊字元"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_Forget2_NewPassword2"
+        app:layout_constraintTop_toBottomOf="@+id/et_Forget2_NewPassword2" />
+
+    <Button
+        android:id="@+id/bt_Forget2_NewPassword"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:text="送出"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Forget2_Rule" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

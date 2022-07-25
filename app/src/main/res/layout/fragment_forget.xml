@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login_project.ForgetFragment">
+
+    <TextView
+        android:id="@+id/tv_Forget_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="忘記密碼"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_Forget_Account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="電子郵件 / 行動電話號碼"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.671"
+        app:layout_constraintStart_toEndOf="@+id/tv_Forget_Account"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Forget_Title" />
+
+    <TextView
+        android:id="@+id/tv_Forget_Account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="認證資料："
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_Forget_Account"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_Forget_Account"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/bt_Forget_Checkdata"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="傳送驗證碼"
+        app:layout_constraintEnd_toEndOf="@+id/et_Forget_Account"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="@+id/tv_Forget_Account"
+        app:layout_constraintTop_toBottomOf="@+id/et_Forget_Account" />
+
+    <EditText
+        android:id="@+id/et_Forget_VerCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="請輸入驗證碼"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/et_Forget_Account"
+        app:layout_constraintStart_toStartOf="@+id/et_Forget_Account"
+        app:layout_constraintTop_toBottomOf="@+id/bt_Forget_Checkdata" />
+
+    <TextView
+        android:id="@+id/tv_Forget_VerCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="驗證碼："
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_Forget_Account"
+        app:layout_constraintStart_toStartOf="@+id/tv_Forget_Account"
+        app:layout_constraintTop_toBottomOf="@+id/bt_Forget_Checkdata" />
+
+    <Button
+        android:id="@+id/bt_Forget_Next"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:text="送出"
+        app:layout_constraintEnd_toEndOf="@+id/bt_Forget_Checkdata"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/bt_Forget_Checkdata"
+        app:layout_constraintTop_toBottomOf="@+id/et_Forget_VerCode" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
