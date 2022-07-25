@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,6 +9,106 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="516dp"
+            android:layout_marginEnd="177dp"
+            android:text="這是會員專區"
+            android:textSize="60sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.418"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_Person"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/traveller"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/iv_MemberName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="會員名稱"
+            android:textSize="34sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Person"
+            app:layout_constraintHorizontal_bias="0.132"
+            app:layout_constraintStart_toEndOf="@+id/iv_Person"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Person" />
+
+        <TextView
+            android:id="@+id/iv_MemberClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="會員類別"
+            android:textSize="34sp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_Person"
+            app:layout_constraintStart_toStartOf="@+id/iv_Person"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Person" />
+
+        <ImageView
+            android:id="@+id/iv_MemberInfo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/project"
+            app:layout_constraintEnd_toStartOf="@+id/iv_MemberClass"
+            app:layout_constraintHorizontal_bias="0.22"
+            app:layout_constraintStart_toStartOf="@+id/iv_MemberClass"
+            app:layout_constraintTop_toBottomOf="@+id/iv_MemberClass" />
+
+        <ImageView
+            android:id="@+id/iv_Friends"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/laugh"
+            app:layout_constraintEnd_toStartOf="@+id/iv_MemberName"
+            app:layout_constraintStart_toEndOf="@+id/iv_MemberClass"
+            app:layout_constraintTop_toBottomOf="@+id/iv_MemberName" />
+
+        <ImageView
+            android:id="@+id/iv_LogOut"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/logout__1_"
+            app:layout_constraintEnd_toStartOf="@+id/iv_Support"
+            app:layout_constraintStart_toStartOf="@+id/iv_Support"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Support" />
+
+        <ImageView
+            android:id="@+id/iv_Setting"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/settings"
+            app:layout_constraintEnd_toEndOf="@+id/iv_MemberInfo"
+            app:layout_constraintStart_toEndOf="@+id/iv_MemberInfo"
+            app:layout_constraintTop_toBottomOf="@+id/iv_MemberInfo" />
+
+        <ImageView
+            android:id="@+id/iv_Support"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/customer_service"
+            app:layout_constraintEnd_toEndOf="@+id/iv_MemberName"
+            app:layout_constraintStart_toEndOf="@+id/iv_MemberName"
+            app:layout_constraintTop_toBottomOf="@+id/iv_MemberName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

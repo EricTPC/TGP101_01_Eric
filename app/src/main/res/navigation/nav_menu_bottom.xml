@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_menu_bottom"
-    app:startDestination="@id/it_Project">
+    app:startDestination="@id/it_Home">
     <fragment
         android:id="@+id/it_Home"
         android:name="idv.tgp10101.eric.forntpage.forntpage_project.FrontpageFragment"

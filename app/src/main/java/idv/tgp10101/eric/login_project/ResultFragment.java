@@ -1,6 +1,7 @@
 package idv.tgp10101.eric.login_project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import idv.tgp10101.eric.MainActivity;
+import idv.tgp10101.eric.MainActivity2;
 import idv.tgp10101.eric.R;
 
 
@@ -52,13 +55,18 @@ public class ResultFragment extends Fragment {
         activity = getActivity();
         findviews(view);
         haneleTvResult();
+
+
     }
 
     private void haneleTvResult() {
         tv_Result.setText(" Welcome!! \n 敬愛的" + bundle.getString("nickname") +"");
         tv_Result.setOnClickListener( view -> {
-            NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_result_to_takePicture,bundle);
+            Intent intent = new Intent();
+            intent.setClass(activity, MainActivity2.class);
+            startActivity(intent);
+//            NavController navController = Navigation.findNavController(view);
+//            navController.navigate(R.id.action_result_to_takePicture,bundle);
         });
         bt_SignOut_Google.setOnClickListener( view -> {signOut_Google();});
         bt_SignOut_Facebook.setOnClickListener( view -> {signOut_Facebook();});
@@ -93,11 +101,11 @@ public class ResultFragment extends Fragment {
 
     private void signOut_Facebook() {
         // 登出Firebase帳號
-        auth.signOut();
+//        auth.signOut();
         // 登出FB帳號
-        LoginManager.getInstance().logOut();
-        Navigation.findNavController(textView).popBackStack();
-        Log.d(TAG, "Signed out");
+//        LoginManager.getInstance().logOut();
+//        Navigation.findNavController(textView).popBackStack();
+//        Log.d(TAG, "Signed out");
     }
 
 }
