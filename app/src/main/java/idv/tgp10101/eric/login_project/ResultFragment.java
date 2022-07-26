@@ -83,7 +83,6 @@ public class ResultFragment extends Fragment {
     private void signOut_Google() {
         // 登出Firebase帳號
         auth.signOut();
-
         // 下列程式會登出Google帳號，user再次登入時會再次跳出Google登入畫面
         // 如果沒有登出，則不會再次跳出Google登入畫面
         GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -100,12 +99,12 @@ public class ResultFragment extends Fragment {
 
 
     private void signOut_Facebook() {
-        // 登出Firebase帳號
-//        auth.signOut();
-        // 登出FB帳號
-//        LoginManager.getInstance().logOut();
-//        Navigation.findNavController(textView).popBackStack();
-//        Log.d(TAG, "Signed out");
+//         登出Firebase帳號
+        auth.signOut();
+//         登出FB帳號
+        LoginManager.getInstance().logOut();
+        Navigation.findNavController(textView).popBackStack();
+        Log.d(TAG, "Signed out");
     }
 
 }

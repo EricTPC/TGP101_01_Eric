@@ -248,7 +248,7 @@ public class TakePictureFragment extends Fragment {
 //                    Log.e(TAG, e.toString());
 //                }
 //            }
-//            ivPicture.setImageBitmap(bitmap);
+//            ViewHolder.iv_Pic.setImageBitmap(bitmap);
 //            ViewHolder.iv_Pic.setImageResource(attpic.getImageResId());
 //            ViewHolder.iv_Pic.setImageResource( );
             ViewHolder.iv_Pic.setImageResource( att_PicList.getImageResId() );
