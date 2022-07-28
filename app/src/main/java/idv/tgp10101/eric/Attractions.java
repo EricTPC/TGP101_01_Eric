@@ -16,7 +16,6 @@ public class Attractions implements Serializable {
     private List<?> attList;
 
 
-
     public Attractions() {
     }
 

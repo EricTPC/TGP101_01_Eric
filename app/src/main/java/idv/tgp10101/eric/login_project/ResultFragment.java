@@ -41,18 +41,19 @@ public class ResultFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         bundle = getArguments();
+        activity = getActivity();
         return inflater.inflate(R.layout.fragment_result, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        activity = getActivity();
         findviews(view);
         haneleTvResult();
 
@@ -77,6 +78,7 @@ public class ResultFragment extends Fragment {
         bt_SignOut_Google = view.findViewById(R.id.bt_SignOut_Google);
         bt_SignOut_Facebook = view.findViewById(R.id.bt_SignOut_Facebook);
         tv_Result = view.findViewById(R.id.tv_Result);
+        textView = view.findViewById(R.id.textView);
 
     }
 
@@ -105,6 +107,20 @@ public class ResultFragment extends Fragment {
         LoginManager.getInstance().logOut();
         Navigation.findNavController(textView).popBackStack();
         Log.d(TAG, "Signed out");
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // 檢查user是否已經登入，是則FirebaseUser物件不為null
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            Navigation.findNavController(textView).popBackStack();
+        } else {
+            String text = "Firebase UID: " + user.getUid();
+            textView.setText(text);
+        }
     }
 
 }
