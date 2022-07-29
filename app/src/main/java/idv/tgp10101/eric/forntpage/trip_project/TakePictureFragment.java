@@ -51,18 +51,18 @@ import idv.tgp10101.eric.MainActivity;
 import idv.tgp10101.eric.R;
 
 public class TakePictureFragment extends Fragment {
-    private Activity activity;
     private static final String TAG = "TAG_MainActivity";
+    private static final String FILENAME = "Attractions";
+    private Activity activity;
     private Button button,bt_Save,bt_01,bt_02,bt_03;
     private TextView textView,tvTitlepc,tv_Datetime,tv_time;
     private ImageView imageView,ivPicture;
     private EditText editText,et_Searchpc,et_Des,et_Datetime;
     private ActivityResultLauncher<Uri> takePicLauncher;
     private ActivityResultLauncher<Intent> cropPicLauncher;
-    private File dir;
-    private File file;
+    private File file,dir;
     private Uri srcUri;
-    private static final String FILENAME = "Attractions";
+    private Attractions attractions;
     private Handler mHandler;
     private ContentResolver contentResolver;
     private RecyclerView rv_Att_Pic;
@@ -269,6 +269,7 @@ public class TakePictureFragment extends Fragment {
                     } catch (ActivityNotFoundException | IOException e) {
                         Log.e(TAG, e.toString());
                     }
+
                 });
             }
         }

@@ -7,22 +7,22 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Attractions implements Serializable {
-
-    private String name , title , describe,searchpc,des ,imageee;
-    private Integer id;
-    private Bitmap imagebitmap;
-    private int age,ImageResId;
-    private List<ImageView> imagelist;
     private List<?> attList;
+    private String searchpc,imageee;
+    private Integer id;
+    private int ImageResId;
+
+    private String title;           //抬頭
+    private String name;            //名稱
+    private int age;                //年齡
+    private String describe,des;    //描述
+    private String web;             //網址
+    private String phone;           //電話
+    private String address;         //地址
+    private byte[] image;           //圖片儲存
 
 
     public Attractions() {
-    }
-
-    public Attractions(String searchpc, String des, Bitmap imagebitmap) {
-        this.searchpc = searchpc;
-        this.des = des;
-        this.imagebitmap = imagebitmap;
     }
 
     public Attractions(String searchpc, String des, String imageee) {
@@ -35,6 +35,11 @@ public class Attractions implements Serializable {
         this.searchpc = searchpc;
         this.des = des;
         this.attList = attList;
+    }
+
+    public Attractions(String title, byte[] image) {
+        this.title = title;
+        this.image = image;
     }
 
     public String getSearchpc() {
@@ -86,5 +91,35 @@ public class Attractions implements Serializable {
         this.imageee = imageee;
     }
 
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }
