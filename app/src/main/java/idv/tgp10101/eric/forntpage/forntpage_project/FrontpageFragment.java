@@ -23,13 +23,14 @@ public class FrontpageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        activity = getActivity();
+        requireActivity().setTitle("首頁");
         return inflater.inflate(R.layout.fragment_frontpage, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        activity = getActivity();
+
     }
 }

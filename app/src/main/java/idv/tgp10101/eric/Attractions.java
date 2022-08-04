@@ -8,10 +8,10 @@ import java.util.List;
 
 public class Attractions implements Serializable {
     private List<?> attList;
-    private String searchpc,imageee;
+    private String imageee;         //圖檔路徑
     private Integer id;
     private int ImageResId;
-
+    private String searchpc;        //專案名稱
     private String title;           //抬頭
     private String name;            //名稱
     private int age;                //年齡

@@ -18,7 +18,7 @@
             android:layout_marginTop="516dp"
             android:layout_marginEnd="177dp"
             android:text="這是會員專區"
-            android:textSize="60sp"
+            android:textSize="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.418"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/iv_MemberClass"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/vip"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_MemberClass"
+            app:layout_constraintEnd_toStartOf="@+id/tv_MemberClass"
+            app:layout_constraintTop_toTopOf="@+id/tv_MemberClass" />
+
         <TextView
-            android:id="@+id/iv_MemberName"
+            android:id="@+id/tv_MemberName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -48,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_Person" />
 
         <TextView
-            android:id="@+id/iv_MemberClass"
+            android:id="@+id/tv_MemberClass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -62,31 +71,60 @@
             android:id="@+id/iv_MemberInfo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
             android:src="@drawable/project"
-            app:layout_constraintEnd_toStartOf="@+id/iv_MemberClass"
-            app:layout_constraintHorizontal_bias="0.22"
-            app:layout_constraintStart_toStartOf="@+id/iv_MemberClass"
-            app:layout_constraintTop_toBottomOf="@+id/iv_MemberClass" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_Friends"
+            app:layout_constraintEnd_toStartOf="@+id/iv_Friends"
+            app:layout_constraintTop_toTopOf="@+id/iv_Friends" />
+
+        <TextView
+            android:id="@+id/tv_MemberInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="個人資料"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_MemberInfo"
+            app:layout_constraintStart_toStartOf="@+id/iv_MemberInfo"
+            app:layout_constraintTop_toBottomOf="@+id/iv_MemberInfo" />
 
         <ImageView
             android:id="@+id/iv_Friends"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="85dp"
             android:layout_marginEnd="4dp"
             android:src="@drawable/laugh"
-            app:layout_constraintEnd_toStartOf="@+id/iv_MemberName"
-            app:layout_constraintStart_toEndOf="@+id/iv_MemberClass"
-            app:layout_constraintTop_toBottomOf="@+id/iv_MemberName" />
+            app:layout_constraintEnd_toStartOf="@+id/tv_MemberName"
+            app:layout_constraintStart_toEndOf="@+id/tv_MemberClass"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Person" />
+
+        <TextView
+            android:id="@+id/tv_Friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="好友名單"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Friends"
+            app:layout_constraintStart_toStartOf="@+id/iv_Friends"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Friends" />
 
         <ImageView
-            android:id="@+id/iv_LogOut"
+            android:id="@+id/iv_Support"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/logout__1_"
-            app:layout_constraintEnd_toStartOf="@+id/iv_Support"
+            android:layout_marginStart="32dp"
+            android:src="@drawable/customer_service"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_Friends"
+            app:layout_constraintStart_toEndOf="@+id/iv_Friends"
+            app:layout_constraintTop_toTopOf="@+id/iv_Friends" />
+
+        <TextView
+            android:id="@+id/tv_Support"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客服專區"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Support"
             app:layout_constraintStart_toStartOf="@+id/iv_Support"
             app:layout_constraintTop_toBottomOf="@+id/iv_Support" />
 
@@ -94,21 +132,59 @@
             android:id="@+id/iv_Setting"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
             android:src="@drawable/settings"
-            app:layout_constraintEnd_toEndOf="@+id/iv_MemberInfo"
-            app:layout_constraintStart_toEndOf="@+id/iv_MemberInfo"
-            app:layout_constraintTop_toBottomOf="@+id/iv_MemberInfo" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_VipProject"
+            app:layout_constraintEnd_toStartOf="@+id/iv_VipProject"
+            app:layout_constraintTop_toTopOf="@+id/iv_VipProject" />
+
+        <TextView
+            android:id="@+id/tv_Setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="設定"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Setting"
+            app:layout_constraintStart_toStartOf="@+id/iv_Setting"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Setting" />
 
         <ImageView
-            android:id="@+id/iv_Support"
+            android:id="@+id/iv_LogOut"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/customer_service"
-            app:layout_constraintEnd_toEndOf="@+id/iv_MemberName"
-            app:layout_constraintStart_toEndOf="@+id/iv_MemberName"
-            app:layout_constraintTop_toBottomOf="@+id/iv_MemberName" />
+            android:layout_marginStart="32dp"
+            android:src="@drawable/logout__1_"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_VipProject"
+            app:layout_constraintStart_toEndOf="@+id/iv_VipProject" />
+
+        <TextView
+            android:id="@+id/tv_LogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登出"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_LogOut"
+            app:layout_constraintStart_toStartOf="@+id/iv_LogOut"
+            app:layout_constraintTop_toBottomOf="@+id/iv_LogOut" />
+
+        <ImageView
+            android:id="@+id/iv_VipProject"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/vip_card__2_"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Friends"
+            app:layout_constraintStart_toStartOf="@+id/iv_Friends"
+            app:layout_constraintTop_toTopOf="@+id/tv_Friends" />
+        <TextView
+            android:id="@+id/tv_VipProject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VIP專案"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_VipProject"
+            app:layout_constraintStart_toStartOf="@+id/iv_VipProject"
+            app:layout_constraintTop_toBottomOf="@+id/iv_VipProject" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

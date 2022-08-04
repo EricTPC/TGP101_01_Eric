@@ -11,19 +11,203 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tv_test04"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="261dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="262dp"
+            android:layout_marginTop="40dp"
             android:text="這是資料查詢"
             android:textSize="60sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Working03"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/iv_Working02"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Working01" />
+
+        <ImageView
+            android:id="@+id/iv_GpsNav"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/gps_navigation"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_FoodSearch"
+            app:layout_constraintEnd_toStartOf="@+id/iv_FoodSearch"
+            app:layout_constraintTop_toTopOf="@+id/iv_FoodSearch" />
+
+        <TextView
+            android:id="@+id/tv_GpsNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地圖導航"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_GpsNav"
+            app:layout_constraintStart_toStartOf="@+id/iv_GpsNav"
+            app:layout_constraintTop_toBottomOf="@+id/iv_GpsNav" />
+
+        <ImageView
+            android:id="@+id/iv_FoodSearch"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/diet"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_FoodSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="美食推薦"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_FoodSearch"
+            app:layout_constraintStart_toStartOf="@+id/iv_FoodSearch"
+            app:layout_constraintTop_toBottomOf="@+id/iv_FoodSearch" />
+
+
+        <ImageView
+            android:id="@+id/iv_PlaceSearch"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="32dp"
+
+            android:src="@drawable/forest"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_FoodSearch"
+            app:layout_constraintStart_toEndOf="@+id/iv_FoodSearch"
+            app:layout_constraintTop_toTopOf="@+id/iv_FoodSearch" />
+
+        <TextView
+            android:id="@+id/tv_PlaceSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="景點推薦"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_PlaceSearch"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/iv_PlaceSearch"
+            app:layout_constraintTop_toBottomOf="@+id/iv_PlaceSearch" />
+
+        <ImageView
+            android:id="@+id/iv_Weather"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/weather_news"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_Currency"
+            app:layout_constraintEnd_toStartOf="@+id/iv_Currency"
+            app:layout_constraintTop_toTopOf="@+id/iv_Currency" />
+
+        <TextView
+            android:id="@+id/tv_Weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="天氣資訊"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Weather"
+            app:layout_constraintStart_toStartOf="@+id/iv_Weather"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Weather" />
+
+
+        <ImageView
+            android:id="@+id/iv_Currency"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/currency"
+            app:layout_constraintEnd_toEndOf="@+id/iv_FoodSearch"
+            app:layout_constraintStart_toStartOf="@+id/iv_FoodSearch"
+            app:layout_constraintTop_toBottomOf="@+id/iv_FoodSearch" />
+
+        <TextView
+            android:id="@+id/tv_Currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="匯率換算"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Currency"
+            app:layout_constraintStart_toStartOf="@+id/iv_Currency"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Currency" />
+
+
+        <ImageView
+            android:id="@+id/iv_Emergency"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="32dp"
+            android:src="@drawable/global"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_Currency"
+            app:layout_constraintStart_toEndOf="@+id/iv_Currency"
+            app:layout_constraintTop_toTopOf="@+id/iv_Currency" />
+
+        <TextView
+            android:id="@+id/tv_Emergency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="緊急服務"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Emergency"
+            app:layout_constraintStart_toStartOf="@+id/iv_Emergency"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Emergency" />
+
+        <ImageView
+            android:id="@+id/iv_Working01"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/under_construction"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Currency"
+            app:layout_constraintStart_toStartOf="@+id/iv_Currency"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Currency" />
+
+        <TextView
+            android:id="@+id/tv_Working01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="建置中..."
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Working01"
+            app:layout_constraintStart_toStartOf="@+id/iv_Working01"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Working01" />
+
+        <ImageView
+            android:id="@+id/iv_Working02"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/under_construction"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_Working01"
+            app:layout_constraintEnd_toStartOf="@+id/iv_Working01"
+            app:layout_constraintTop_toTopOf="@+id/iv_Working01" />
+
+        <TextView
+            android:id="@+id/tv_Working02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="施工中..."
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Working02"
+            app:layout_constraintStart_toStartOf="@+id/iv_Working02"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Working02" />
+
+        <ImageView
+            android:id="@+id/iv_Working03"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="32dp"
+            android:src="@drawable/under_construction"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_Working01"
+            app:layout_constraintStart_toEndOf="@+id/iv_Working01"
+            app:layout_constraintTop_toTopOf="@+id/iv_Working01" />
+
+        <TextView
+            android:id="@+id/tv_Working03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="構思中..."
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Working03"
+            app:layout_constraintStart_toStartOf="@+id/iv_Working03"
+            app:layout_constraintTop_toBottomOf="@+id/iv_Working03" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

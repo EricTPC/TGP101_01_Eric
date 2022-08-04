@@ -8,11 +8,15 @@
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP10101Eric/app/src/main/res/xml/file_paths.xml" value="0.22135416666666666" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout-land/fragment_sign.xml" value="0.165625" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/activity_login.xml" value="0.21770833333333334" />
-        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/activity_main.xml" value="0.22135416666666666" />
-        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/activity_main2.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/activity_main2.xml" value="0.2" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/cardview_att_pictrue.xml" value="0.22135416666666666" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/cardview_att_picture_project.xml" value="0.22135416666666666" />
-        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_dataquery.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/cardview_friends_list.xml" value="0.2203125" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_dataquery.xml" value="0.264" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_friend_insert.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_friend_list.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_friend_update.xml" value="0.22135416666666666" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_frontpage.xml" value="0.22135416666666666" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_login.xml" value="0.21770833333333334" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_member_list.xml" value="0.264" />
@@ -22,6 +26,7 @@
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/fragment_take_picture.xml" value="0.21770833333333334" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/layout/new_pic.xml" value="0.22135416666666666" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/menu/menu_bottom.xml" value="0.22135416666666666" />
+        <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric/app/src/main/res/menu/menu_picture_bottom.xml" value="0.2203125" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/activity_main.xml" value="0.22135416666666666" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/cardview_att_pictrue.xml" value="0.21770833333333334" />
         <entry key="..\:/ProgramData/TibaMe/Workspace/TGP101_01_Eric_Cloud/app/src/main/res/layout/cardview_att_picture_project.xml" value="0.21770833333333334" />

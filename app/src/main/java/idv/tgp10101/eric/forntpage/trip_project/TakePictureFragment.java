@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,15 +32,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
@@ -53,6 +59,7 @@ import idv.tgp10101.eric.R;
 public class TakePictureFragment extends Fragment {
     private static final String TAG = "TAG_MainActivity";
     private static final String FILENAME = "Attractions";
+    private String picPath;
     private Activity activity;
     private Button button,bt_Save,bt_01,bt_02,bt_03;
     private TextView textView,tvTitlepc,tv_Datetime,tv_time;
@@ -60,13 +67,14 @@ public class TakePictureFragment extends Fragment {
     private EditText editText,et_Searchpc,et_Des,et_Datetime;
     private ActivityResultLauncher<Uri> takePicLauncher;
     private ActivityResultLauncher<Intent> cropPicLauncher;
+    private ActivityResultLauncher<Intent> pickPicLauncher;
     private File file,dir;
     private Uri srcUri;
     private Attractions attractions;
     private Handler mHandler;
     private ContentResolver contentResolver;
     private RecyclerView rv_Att_Pic;
-    private List<Attractions> attList = new ArrayList<>();
+    private Resources resources;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,24 +83,27 @@ public class TakePictureFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        activity = getActivity();
+        requireActivity().setTitle("拍照頁面");
         return inflater.inflate(R.layout.fragment_take_picture, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        activity = getActivity();
         contentResolver = activity.getContentResolver();
         takePicLauncher = getTakePicLauncher();
         cropPicLauncher = getCropPicLauncher();
-
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//        tv_Datetime.setText( timeStamp );
+        pickPicLauncher = getPickPicLauncher();
+        resources = getResources();
         findViews(view);
         handleButton();
         handleRecyclerView();
         load();
     }
+
+
+
     private void findViews(View view) {
         bt_Save = view.findViewById(R.id.bt_Save);
         tvTitlepc = view.findViewById(R.id.tvTitlepc);
@@ -104,6 +115,41 @@ public class TakePictureFragment extends Fragment {
         bt_02 = view.findViewById(R.id.bt_02);
         bt_03 = view.findViewById(R.id.bt_03);
     }
+
+    private ActivityResultLauncher<Intent> getPickPicLauncher() {
+        return registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), activityResult -> {
+                    /** 4. 取得圖像 **/
+                    if (activityResult.getResultCode() != Activity.RESULT_OK) {
+                        return;
+                    }
+                    try {
+                        // 4.1 取得Uri物件
+                        Uri uri = activityResult.getData().getData();
+                        Bitmap bitmap = null;
+                        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.P) {
+                            // Android 9-
+                            // 4.2 取得InputStream物件
+                            InputStream is = activity.getContentResolver().openInputStream(uri);
+                            // 4.3 取得Bitmap物件
+                            bitmap = BitmapFactory.decodeStream(is);
+                        } else {
+                            // Android 9(+
+                            // 	4.2 從Uri物件建立ImageDecoder.Source物件
+                            ImageDecoder.Source source = ImageDecoder.createSource(
+                                    activity.getContentResolver(),
+                                    uri);
+                            // 4.3 取得Bitmap物件
+                            bitmap = ImageDecoder.decodeBitmap(source);
+                        }
+                        ivPicture.setImageBitmap(bitmap);
+                    } catch (IOException e) {
+                        Log.e(TAG, e.toString());
+                    }
+                }
+        );
+    }
+
     private ActivityResultLauncher<Uri> getTakePicLauncher() {
         return  registerForActivityResult(
                 new ActivityResultContracts.TakePicture(), isOk -> {
@@ -112,6 +158,7 @@ public class TakePictureFragment extends Fragment {
                     }
                 });
     }
+
     private void crop() {
         try {
             final Uri dstUri = Uri.fromFile(createImageFile());
@@ -122,6 +169,7 @@ public class TakePictureFragment extends Fragment {
             Log.d(TAG, e.toString());
         }
     }
+
     private ActivityResultLauncher<Intent> getCropPicLauncher() {
         return registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -149,9 +197,9 @@ public class TakePictureFragment extends Fragment {
                     }
                 });
     }
+
     private void handleButton() {
         bt_Save.setOnClickListener(view ->save());
-//        bt_01.setOnClickListener(view -> addgetAttList());
     }
 
     private void handleRecyclerView() {
@@ -159,11 +207,13 @@ public class TakePictureFragment extends Fragment {
         rv_Att_Pic.setLayoutManager(new GridLayoutManager(activity, 2));
     }
 
-    private List<Attractions> getAttList() {
-        attList.add(new Attractions(R.drawable.ic_launcher_background));
-        attList.add(new Attractions(R.drawable.ic_launcher_background));
-        attList.add(new Attractions(R.drawable.ic_launcher_background));
-        attList.add(new Attractions(R.drawable.ic_launcher_background));
+    private List<String> getAttList() {
+        List<String> attList = new ArrayList<>();
+
+        attList.add(null);
+        attList.add(null);
+        attList.add(null);
+        attList.add(null);
         return attList;
     }
 
@@ -211,15 +261,12 @@ public class TakePictureFragment extends Fragment {
 
     class Myadapter extends RecyclerView.Adapter<Myadapter.MyViewHolder>{
         Context context ;
-        List<Attractions> list;
-//        List<String> list;
-        MainActivity mContext;
-
-        public Myadapter(Context context, List<Attractions> list) {
+//        List<Attractions> list;
+        List<String> list;
+        public Myadapter(Context context, List<String> list) {
             this.context = context;
             this.list = list;
         }
-
         @Override
         public int getItemCount() {
             return list == null ? 0 : list.size();
@@ -235,23 +282,27 @@ public class TakePictureFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder ViewHolder, int position) {
-            final Attractions att_PicList = list.get(position);
-//            File file = new File(att_PicList);
-//            Bitmap bitmap = null;
-//            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.P) {
-//                bitmap = BitmapFactory.decodeFile(file.getPath());
-//            } else {
-//                try {
-//                    ImageDecoder.Source source = ImageDecoder.createSource(file);
-//                    bitmap = ImageDecoder.decodeBitmap(source);
-//                } catch (IOException e) {
-//                    Log.e(TAG, e.toString());
-//                }
-//            }
-//            ViewHolder.iv_Pic.setImageBitmap(bitmap);
+            final String att_PicList = list.get(position);
+            if (att_PicList != null) {
+                File file = new File(att_PicList);
+                Bitmap bitmap = null;
+                if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.P) {
+                    bitmap = BitmapFactory.decodeFile(file.getPath());
+
+                } else {
+                    try {
+                        ImageDecoder.Source source = ImageDecoder.createSource(file);
+                        bitmap = ImageDecoder.decodeBitmap(source);
+                    } catch (IOException e) {
+                        Log.e(TAG, e.toString());
+                    }
+                }
+                ViewHolder.iv_Pic.setImageBitmap(bitmap);
+            }
+
 //            ViewHolder.iv_Pic.setImageResource(attpic.getImageResId());
 //            ViewHolder.iv_Pic.setImageResource( );
-            ViewHolder.iv_Pic.setImageResource( att_PicList.getImageResId() );
+//            ViewHolder.iv_Pic.setImageResource( att_PicList.getImageResId() );
 
         }
 
@@ -261,14 +312,37 @@ public class TakePictureFragment extends Fragment {
                 super(itemView);
                 iv_Pic = itemView.findViewById(R.id.iv_Pic);
                 itemView.setOnClickListener(view -> {
-                    try {
-                        file = createImageFile();
-                        srcUri = FileProvider.getUriForFile(context,activity.getPackageName() + ".fileProvider",file);
-                        takePicLauncher.launch(srcUri);
-                        ivPicture = iv_Pic;
-                    } catch (ActivityNotFoundException | IOException e) {
-                        Log.e(TAG, e.toString());
-                    }
+                    // 實例化PopupMenu物件，並指定錨點元件
+                    PopupMenu popupMenu = new PopupMenu(activity, view);
+                    // 載入選單資源檔
+                    popupMenu.inflate(R.menu.menu_picture_bottom);
+                    // 註冊/實作 選單監聽器
+                    popupMenu.setOnMenuItemClickListener(item -> {
+                        final int resId = item.getItemId();
+                        if (resId == R.id.it_takePic) {
+                            try {
+                                file = createImageFile();
+                                srcUri = FileProvider.getUriForFile(context,activity.getPackageName() + ".fileProvider",file);
+                                takePicLauncher.launch(srcUri);
+                                ivPicture = iv_Pic;
+                            } catch (ActivityNotFoundException | IOException e) {
+                                Log.e(TAG, e.toString());
+                            }
+                        } else if (resId == R.id.it_pickPic) {
+                            try {
+                                // 5. 實例化Intent物件
+                                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                // 6. 執行
+                                pickPicLauncher.launch(intent);
+                                ivPicture = iv_Pic;
+                            } catch (ActivityNotFoundException e) {
+                                Log.e(TAG, e.toString());
+                            }
+                        }
+                        return true;
+                    });
+                    // 顯示彈出選單
+                    popupMenu.show();
 
                 });
             }

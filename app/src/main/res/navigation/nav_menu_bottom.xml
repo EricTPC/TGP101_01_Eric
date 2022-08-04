@@ -23,5 +23,39 @@
         android:id="@+id/it_Member"
         android:name="idv.tgp10101.eric.forntpage.members_projrct.MemberListFragment"
         android:label="fragment_member_list"
-        tools:layout="@layout/fragment_member_list" />
+        tools:layout="@layout/fragment_member_list" >
+        <action
+            android:id="@+id/action_it_Member_to_friendList"
+            app:destination="@id/friendListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/it_Test01"
+        android:name="idv.tgp10101.eric.forntpage.trip_project.TakePictureFragment"
+        android:label="fragment_take_picture"
+        tools:layout="@layout/fragment_take_picture" />
+    <fragment
+        android:id="@+id/friendListFragment"
+        android:name="idv.tgp10101.eric.forntpage.members_projrct.FriendListFragment"
+        android:label="fragment_friend_list"
+        tools:layout="@layout/fragment_friend_list" >
+        <action
+            android:id="@+id/action_friendList_to_friendInsert"
+            app:destination="@id/friendInsertFragment" />
+        <action
+            android:id="@+id/action_friendList_to_friendUpdate"
+            app:destination="@id/friendUpdateFragment" />
+        <action
+            android:id="@+id/action_friendList_to_it_Member"
+            app:destination="@id/it_Member" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendInsertFragment"
+        android:name="idv.tgp10101.eric.forntpage.members_projrct.FriendInsertFragment"
+        android:label="fragment_friend_insert"
+        tools:layout="@layout/fragment_friend_insert" />
+    <fragment
+        android:id="@+id/friendUpdateFragment"
+        android:name="idv.tgp10101.eric.forntpage.members_projrct.FriendUpdateFragment"
+        android:label="fragment_friend_update"
+        tools:layout="@layout/fragment_friend_update" />
 </navigation>

@@ -18,4 +18,8 @@
         android:id="@+id/it_Member"
         android:icon="@drawable/twotone_manage_accounts_20"
         android:title="會員專區" />
+    <item
+        android:id="@+id/it_Test01"
+        android:icon="@drawable/twotone_manage_accounts_20"
+        android:title="測試專區一" />
 </menu>

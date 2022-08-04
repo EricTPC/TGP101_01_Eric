@@ -32,11 +32,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment:2.5.0'
-    implementation 'androidx.navigation:navigation-ui:2.5.0'
-
-
-
+    implementation 'androidx.navigation:navigation-fragment:2.5.1'
+    implementation 'androidx.navigation:navigation-ui:2.5.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -47,12 +44,20 @@ dependencies {
     //Fb
     implementation 'com.facebook.android:facebook-login:latest.release'
 
+
     //Firebase
+    implementation 'com.google.firebase:firebase-firestore:24.2.1'
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-storage'
-
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.firebase:firebase-firestore'
+    // 使用Firebase BOM則無須指定Firebase單一函式庫的版次 (但BOM仍需指定版次)
+    implementation platform('com.google.firebase:firebase-bom:30.3.0')
+    implementation 'com.google.firebase:firebase-messaging'
+    // 編譯時方法數超過64K需要加上multidex
+    implementation 'com.android.support:multidex:1.0.3'
     //裁切
     implementation 'com.github.yalantis:ucrop:2.2.8'
 }

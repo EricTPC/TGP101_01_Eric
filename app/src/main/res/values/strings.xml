@@ -10,4 +10,50 @@
     <string name="bt_Login">登入</string>
 
 
+    <string name="textInsert">Insert</string>
+    <string name="textUpdate">Update</string>
+    <string name="textDelete">Delete</string>
+    <string name="textSpots">Spots</string>
+    <string name="textSpotName">Spot name</string>
+    <string name="textSpotWeb">Web</string>
+    <string name="textSpotPhone">Phone</string>
+    <string name="textSpotAddress">Address</string>
+    <string name="textClear">Clear</string>
+    <string name="textNext">Next</string>
+    <string name="textBack">Back</string>
+    <string name="textCancel">Cancel</string>
+    <string name="textTakePicture">Take Picture</string>
+    <string name="textInserted">Spot is inserted</string>
+    <string name="textInsertFail">Insert failed</string>
+    <string name="textNameIsInvalid">Spot name is invalid</string>
+    <string name="textNoImage">No image</string>
+    <string name="textNoSpotFound">No spot found</string>
+    <string name="textDeleted">Spot is deleted</string>
+    <string name="textDeleteFail">Delete failed</string>
+    <string name="textUpdated">Spot is updated</string>
+    <string name="textUpdateFail">Update fail</string>
+    <string name="textNoCameraAppFound">No camera app found</string>
+    <string name="textSpotDetail">Spot Detail</string>
+    <string name="textDirNotCreated">DIRECTORY_PICTURES cannot be created!</string>
+    <string name="textImageUploadSuccess">Image is uploaded</string>
+    <string name="textImageUploadFail">Image upload failed</string>
+    <string name="textImageDownloadFail">Image download Failed</string>
+    <string name="textImageDeleted">Image is deleted</string>
+    <string name="textPickPicture">Pick Picture</string>
+    <string name="textImageDeleteFailed">Image delete failed</string>
+
+    <string name="textNoNetwork">沒有網路連線</string>
+    <string name="textSendSingleFcm">FCM單發</string>
+    <string name="textSendGroupFcm">FCM群發</string>
+    <string name="textGetToken">取得裝置Token</string>
+    <string name="textTitle">訊息標題</string>
+    <string name="textBody">訊息內容</string>
+    <string name="textData">自訂資料</string>
+    <string name="textRegistrationToken">顯示裝置Token</string>
+    <string name="default_notification_channel_id">default_channel_id</string>
+    <string name="default_notification_channel_name">default_channel_name</string>
+    <string name="textSubscribeHealth">訂閱「健康主題」</string>
+    <string name="textSubscribed">完成訂閱</string>
+    <string name="textSubscribeFailed">訂閱失敗</string>
+    <string name="textSendSubscriber">發FCM給訂閱者</string>
 </resources>

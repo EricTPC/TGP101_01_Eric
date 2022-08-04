@@ -48,6 +48,7 @@ public class ResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         bundle = getArguments();
         activity = getActivity();
+        requireActivity().setTitle("進入頁面");
         return inflater.inflate(R.layout.fragment_result, container, false);
     }
 
@@ -110,17 +111,17 @@ public class ResultFragment extends Fragment {
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // 檢查user是否已經登入，是則FirebaseUser物件不為null
-        FirebaseUser user = auth.getCurrentUser();
-        if (user == null) {
-            Navigation.findNavController(textView).popBackStack();
-        } else {
-            String text = "Firebase UID: " + user.getUid();
-            textView.setText(text);
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // 檢查user是否已經登入，是則FirebaseUser物件不為null
+//        FirebaseUser user = auth.getCurrentUser();
+//        if (user == null) {
+//            Navigation.findNavController(textView).popBackStack();
+//        } else {
+//            String text = "Firebase UID: " + user.getUid();
+//            textView.setText(text);
+//        }
+//    }
 
 }
