@@ -22,6 +22,7 @@ import idv.tgp10101.eric.R;
 
 
 public class MemberListFragment extends Fragment {
+    private static final String TAG = "TAG_MemberListFragment";
     private Activity activity;
     private ImageView iv_Person,iv_MemberInfo,iv_Friends,iv_Support,iv_Setting,iv_LogOut,iv_VipProject,iv_MemberClass;
     private TextView tv_MemberClass,tv_MemberName,tv_MemberInfo,tv_Friends,tv_Support,tv_Setting,tv_LogOut,tv_VipProject;

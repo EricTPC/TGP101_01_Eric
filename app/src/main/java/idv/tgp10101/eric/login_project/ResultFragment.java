@@ -30,7 +30,7 @@ import idv.tgp10101.eric.R;
 
 
 public class ResultFragment extends Fragment {
-    private static final String TAG = "TAG_MainActivity";
+    private static final String TAG = "TAG_ResultFragment";
     private Activity activity;
     private Button bt_SignOut_Google,bt_SignOut_Facebook;
     private TextView editText,tv_Result;
@@ -42,12 +42,13 @@ public class ResultFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
+        bundle = getArguments();
+        activity = getActivity();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        bundle = getArguments();
-        activity = getActivity();
+
         requireActivity().setTitle("進入頁面");
         return inflater.inflate(R.layout.fragment_result, container, false);
     }
@@ -67,6 +68,7 @@ public class ResultFragment extends Fragment {
             Intent intent = new Intent();
             intent.setClass(activity, MainActivity2.class);
             startActivity(intent);
+            activity.finish();
 //            NavController navController = Navigation.findNavController(view);
 //            navController.navigate(R.id.action_result_to_takePicture,bundle);
         });

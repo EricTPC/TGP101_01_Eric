@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TGP101 01 Eric</string>
+    <string name="app_name">TGP101_01_Eric</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -56,4 +56,15 @@
     <string name="textSubscribed">完成訂閱</string>
     <string name="textSubscribeFailed">訂閱失敗</string>
     <string name="textSendSubscriber">發FCM給訂閱者</string>
+
+    <string name="textResult">Result</string>
+    <string name="textEmail">Email</string>
+    <string name="textPassword">Password (6 more characters)</string>
+    <string name="textSignIn">Sign in</string>
+    <string name="textSignUp">Sign up</string>
+    <string name="textSignOut">Sign out</string>
+    <string name="textEmailOrPasswordEmpty">Email or password is empty</string>
+    <string name="textPhone">Phone number</string>
+    <string name="textAddress">Address</string>
+
 </resources>

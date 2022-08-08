@@ -19,6 +19,7 @@ import idv.tgp10101.eric.R;
 
 
 public class ForgetFragment extends Fragment {
+    private static final String TAG = "TAG_ForgetFragment";
     private Activity activity;
     private Bundle bundle;
     private EditText et_Forget_Account,et_Forget_VerCode;

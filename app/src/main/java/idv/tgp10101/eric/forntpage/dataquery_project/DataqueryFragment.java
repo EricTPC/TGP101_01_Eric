@@ -18,6 +18,7 @@ import idv.tgp10101.eric.R;
 
 
 public class DataqueryFragment extends Fragment {
+    private static final String TAG = "TAG_DataqueryFragment";
     private Activity activity;
     private ImageView iv_GpsNav,iv_FoodSearch,iv_PlaceSearch,iv_Weather,iv_Currency;
     private ImageView iv_Emergency,iv_Working01,iv_Working02,iv_Working03;

@@ -21,7 +21,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvTitlepc"
+                android:id="@+id/tv_TakePc_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
@@ -31,7 +31,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/bt_Save"
+                android:id="@+id/bt_TakePc_Save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
@@ -44,15 +44,49 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp">
 
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="名稱："
+                android:textSize="24sp" />
+
             <EditText
-                android:id="@+id/et_Searchpc"
+                android:id="@+id/et_TakePc_Name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#92A5EF7C"
                 android:ems="10"
                 android:hint="請輸入關鍵字搜尋"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textSize="24sp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="描述："
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/et_TakePc_Des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#E8B9B9"
+                android:ems="10"
+                android:hint="請敘述...."
+                android:inputType="textMultiLine|textPersonName"
+                android:lines="2"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -62,11 +96,11 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/bt_01"
+                android:id="@+id/bt_TakePc_NewPc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="暫無功能01" />
+                android:text="=新增照片=" />
 
             <Button
                 android:id="@+id/bt_02"
@@ -93,25 +127,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_Att_Pic"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|center_horizontal|center_vertical" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/et_Des"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#E8B9B9"
-                android:ems="10"
-                android:hint="請敘述...."
-                android:inputType="textMultiLine|textPersonName"
-                android:lines="6" />
+                android:layout_gravity="center|center_horizontal|center_vertical" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,7 +139,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_Datetime"
+                android:id="@+id/tv_TakePc_Datetime"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="#F9D07E"

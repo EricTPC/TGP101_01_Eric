@@ -40,7 +40,7 @@ import idv.tgp10101.eric.Spot;
 
 
 public class FriendListFragment extends Fragment {
-    private static final String TAG = "TAG_SpotListFragment";
+    private static final String TAG = "TAG_FriendListFragment";
     private TextView textView;
     private RecyclerView rvSpots;
     private SearchView searchView;
@@ -97,12 +97,15 @@ public class FriendListFragment extends Fragment {
 
     }
 
+
+
     @Override
     //啟動 Fragment 時被回撥，此時Fragment可見，只是還沒有在前臺顯示，因此無法與使用者進行互動
     public void onStart() {
         super.onStart();
         Log.d(TAG,"onStart()");
         showAllSpots();
+
     }
 
     @Override

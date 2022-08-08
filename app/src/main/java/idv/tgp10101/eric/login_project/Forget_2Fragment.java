@@ -20,6 +20,7 @@ import idv.tgp10101.eric.R;
 
 
 public class Forget_2Fragment extends Fragment {
+    private static final String TAG = "TAG_Forget_2Fragment";
     private Activity activity;
     private Bundle bundle;
     private EditText et_Forget2_NewPassword2,et_Forget2_NewPassword;

@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Attractions implements Serializable {
     private List<?> attList;
+    private List<String> PicList;
+
     private String imageee;         //圖檔路徑
     private Integer id;
     private int ImageResId;
@@ -31,16 +33,12 @@ public class Attractions implements Serializable {
         this.imageee = imageee;
     }
 
-    public Attractions(String searchpc, String des, List<Attractions> attList) {
+    public Attractions( String searchpc, String des,List<String> picList) {
+        PicList = picList;
         this.searchpc = searchpc;
         this.des = des;
-        this.attList = attList;
     }
 
-    public Attractions(String title, byte[] image) {
-        this.title = title;
-        this.image = image;
-    }
 
     public String getSearchpc() {
         return searchpc;
@@ -64,11 +62,6 @@ public class Attractions implements Serializable {
 
     public void setAttList(List<Attractions> attList) {
         this.attList = attList;
-    }
-
-    public Attractions(String searchpc, String des) {
-        this.searchpc = searchpc;
-        this.des = des;
     }
 
     public Attractions(int imageResId) {
@@ -121,5 +114,13 @@ public class Attractions implements Serializable {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public List<String> getPicList() {
+        return PicList;
+    }
+
+    public void setPicList(List<String> picList) {
+        PicList = picList;
     }
 }

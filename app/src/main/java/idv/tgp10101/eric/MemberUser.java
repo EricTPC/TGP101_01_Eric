@@ -2,7 +2,7 @@ package idv.tgp10101.eric;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class MemberUser implements Serializable {
     private String uid;         //會員UID
     private String username;    //會員名字
     private String email;       //會員信箱
@@ -14,7 +14,7 @@ public class User implements Serializable {
     private String vippay;      //會員是否在線上 1 = 付費會員 , 2 = 未付費會員
     private String viplevel;    //VIP會員等級 超級VIP = svip , VIP = vip
 
-    public User() {
+    public MemberUser() {
     }
 
     @Override

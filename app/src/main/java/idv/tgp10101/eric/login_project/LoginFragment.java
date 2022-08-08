@@ -51,7 +51,7 @@ import idv.tgp10101.eric.R;
 
 
 public class LoginFragment extends Fragment {
-    private static final String TAG = "TAG_MainActivity";
+    private static final String TAG = "TAG_LoginFragment";
     private Activity activity;
     private FirebaseAuth auth;
     private EditText et_Username,et_Password;
@@ -124,6 +124,30 @@ public class LoginFragment extends Fragment {
             }
         });
         // =========================================== 登入按鈕 =========================================== //
+
+        // =========================================== 登入按鈕 =========================================== //
+//        bt_Login.setOnClickListener( view -> {
+//            final String username = String.valueOf(et_Username.getText());
+//            final String password = String.valueOf(et_Password.getText());
+//            String nickname = null;
+//            for (Map<String,String> userMap:getUserlist()) {
+//                final String uStr = userMap.get("username");
+//                final String pStr = userMap.get("password");
+//                if(Objects.equals(username,uStr) && Objects.equals(password,pStr))  {
+//                    nickname = userMap.get("nickname");
+//                }
+//            }
+//            if(nickname == null) {
+//                Toast.makeText(activity, "帳號或密碼錯誤，請查閱底下使用說明。", Toast.LENGTH_SHORT).show();
+//            }else {
+//                bundle = new Bundle();
+//                bundle.putString("nickname",nickname);
+//                NavController navController = Navigation.findNavController(view);
+//                navController.navigate(R.id.action_login_to_result,bundle);
+//            }
+//        });
+        // =========================================== 登入按鈕 =========================================== //
+
         // =========================================== 忘記密碼按鈕 =========================================== //
         tv_Login_Forget.setOnClickListener( view -> {
             bundle = new Bundle();

@@ -23,6 +23,7 @@ import idv.tgp10101.eric.Attractions;
 import idv.tgp10101.eric.R;
 
 public class ProjectListFragment extends Fragment {
+    private static final String TAG = "TAG_ProjectListFragment";
     private Activity activity;
     private Attractions attractions;
     private RecyclerView rv_Att_Project;

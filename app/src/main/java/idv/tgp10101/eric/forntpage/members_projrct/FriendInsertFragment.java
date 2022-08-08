@@ -43,7 +43,7 @@ import idv.tgp10101.eric.R;
 import idv.tgp10101.eric.Spot;
 
 public class FriendInsertFragment extends Fragment {
-    private static final String TAG = "TAG_SpotInsertFragment";
+    private static final String TAG = "TAG_FriendInsertFragment";
     private FirebaseFirestore db;
     private FirebaseStorage storage;
     private ImageView ivSpot;

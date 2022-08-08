@@ -44,7 +44,7 @@ import idv.tgp10101.eric.Spot;
 
 
 public class FriendUpdateFragment extends Fragment {
-    private static final String TAG = "TAG_SpotUpdateFragment";
+    private static final String TAG = "TAG_FriendUpdate";
     private FirebaseFirestore db;
     private FirebaseStorage storage;
     private ImageView ivSpot;
@@ -101,8 +101,7 @@ public class FriendUpdateFragment extends Fragment {
             if (cropImageUri != null) {
                 Bitmap bitmap = null;
                 try {
-                    bitmap = BitmapFactory.decodeStream(
-                            requireContext().getContentResolver().openInputStream(cropImageUri));
+                    bitmap = BitmapFactory.decodeStream(requireContext().getContentResolver().openInputStream(cropImageUri));
                 } catch (IOException e) {
                     Log.e(TAG, e.toString());
                 }
