@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".forntpage.members_projrct.MemberInfoFragment" >
+
+    <TextView
+        android:id="@+id/tv_Memberinfo_Uid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="會員編號："
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_Memberinfo_Userimage"
+        app:layout_constraintTop_toTopOf="@+id/iv_Memberinfo_Userimage" />
+
+    <TextView
+        android:id="@+id/tv_Memberinfo_SetUid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="01234567890123456"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_Memberinfo_Uid"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Memberinfo_Uid" />
+
+    <TextView
+        android:id="@+id/tv_Memberinfo_Level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="會員等級："
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_Memberinfo_Uid"
+        app:layout_constraintStart_toStartOf="@+id/tv_Memberinfo_Uid"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Memberinfo_SetUid" />
+
+    <TextView
+        android:id="@+id/tv_Memberinfo_SetLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="一般會員"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_Memberinfo_Level"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Memberinfo_Level" />
+
+    <ImageView
+        android:id="@+id/iv_Memberinfo_Userimage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/traveller"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.122"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_Memberinfo_Username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="220dp"
+        android:text="會員名稱："
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_Memberinfo_Username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_Memberinfo_Userimage"
+        app:layout_constraintTop_toTopOf="@+id/et_Memberinfo_Username" />
+
+    <EditText
+        android:id="@+id/et_Memberinfo_Username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toEndOf="@+id/tv_Memberinfo_Username"
+        app:layout_constraintTop_toBottomOf="@+id/iv_Memberinfo_Userimage" />
+
+    <TextView
+        android:id="@+id/tv_Memberinfo_Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="會員信箱："
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_Memberinfo_Email"
+        app:layout_constraintEnd_toStartOf="@+id/et_Memberinfo_Email"
+        app:layout_constraintTop_toTopOf="@+id/et_Memberinfo_Email"
+        app:layout_constraintVertical_bias="0.722" />
+
+    <EditText
+        android:id="@+id/et_Memberinfo_Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/et_Memberinfo_Username"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_Memberinfo_Username"
+        app:layout_constraintTop_toBottomOf="@+id/et_Memberinfo_Username" />
+
+    <TextView
+        android:id="@+id/tv_Memberinfo_Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="會員密碼："
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_Memberinfo_Password"
+        app:layout_constraintEnd_toStartOf="@+id/et_Memberinfo_Password"
+        app:layout_constraintTop_toTopOf="@+id/et_Memberinfo_Password" />
+
+    <EditText
+        android:id="@+id/et_Memberinfo_Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/et_Memberinfo_Email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_Memberinfo_Email"
+        app:layout_constraintTop_toBottomOf="@+id/et_Memberinfo_Email" />
+
+    <TextView
+        android:id="@+id/tv_Memberinfo_Phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="會員手機號碼："
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_Memberinfo_Phone"
+        app:layout_constraintEnd_toStartOf="@+id/et_Memberinfo_Phone"
+        app:layout_constraintTop_toTopOf="@+id/et_Memberinfo_Phone"
+        app:layout_constraintVertical_bias="0.722" />
+
+    <EditText
+        android:id="@+id/et_Memberinfo_Phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="@+id/et_Memberinfo_Password"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_Memberinfo_Password"
+        app:layout_constraintTop_toBottomOf="@+id/et_Memberinfo_Password" />
+
+    <TextView
+        android:id="@+id/tv_Memberinfo_Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="會員地址："
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_Memberinfo_Address"
+        app:layout_constraintEnd_toStartOf="@+id/et_Memberinfo_Address"
+        app:layout_constraintTop_toTopOf="@+id/et_Memberinfo_Address" />
+
+    <EditText
+        android:id="@+id/et_Memberinfo_Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="@+id/et_Memberinfo_Phone"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_Memberinfo_Phone"
+        app:layout_constraintTop_toBottomOf="@+id/et_Memberinfo_Phone" />
+
+    <Button
+        android:id="@+id/bt_Memberinfo_Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="儲存"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_Memberinfo_Back"
+        app:layout_constraintEnd_toStartOf="@+id/bt_Memberinfo_Back"
+        app:layout_constraintTop_toTopOf="@+id/bt_Memberinfo_Back" />
+
+    <Button
+        android:id="@+id/bt_Memberinfo_Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="返回"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.712"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_Memberinfo_Address" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

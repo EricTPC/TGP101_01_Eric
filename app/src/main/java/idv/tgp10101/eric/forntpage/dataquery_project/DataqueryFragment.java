@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +78,11 @@ public class DataqueryFragment extends Fragment {
     }
 
     private void handleButton() {
-        iv_GpsNav.setOnClickListener(view -> get_iv_GpsNav());
+        iv_GpsNav.setOnClickListener(view -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_it_Info_to_gpsNav);
+            get_iv_GpsNav();
+        });
         iv_FoodSearch.setOnClickListener(view -> get_iv_FoodSearch());
         iv_PlaceSearch.setOnClickListener(view -> get_iv_PlaceSearch());
         iv_Weather.setOnClickListener(view -> get_iv_Weather());

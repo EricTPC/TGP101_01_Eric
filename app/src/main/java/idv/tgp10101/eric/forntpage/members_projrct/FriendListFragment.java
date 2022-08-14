@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,7 +79,7 @@ public class FriendListFragment extends Fragment {
         view.findViewById(R.id.btAdd).setOnClickListener(v -> Navigation.findNavController(v)
                 .navigate(R.id.action_friendList_to_friendInsert));
 
-        searchView = view.findViewById(R.id.searchView);
+        searchView = view.findViewById(R.id.att_SearchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {

@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <SearchView
-            android:id="@+id/searchView"
+            android:id="@+id/att_SearchView"
             android:queryHint="@string/textSpotName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

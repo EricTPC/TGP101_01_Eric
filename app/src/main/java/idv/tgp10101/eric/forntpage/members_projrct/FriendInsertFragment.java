@@ -282,6 +282,7 @@ public class FriendInsertFragment extends Fragment {
             if (pictureTaken) {
                 // document ID成為image path一部分，避免與其他圖檔名稱重複
                 final String imagePath = getString(R.string.app_name) + "/images/" + friend.getId();
+                Log.d(TAG, "cropImageUricropImageUri: " + cropImageUri);
                 storage.getReference().child(imagePath).putFile(cropImageUri)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {

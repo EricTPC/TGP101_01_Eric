@@ -3,16 +3,19 @@ package idv.tgp10101.eric;
 import java.io.Serializable;
 
 public class MemberUser implements Serializable {
-    private String uid;         //會員UID
-    private String username;    //會員名字
-    private String email;       //會員信箱
-    private String password;    //會員密碼
-    private String phone;       //會員手機號碼
-    private String address;     //會員地址
-    private String online;      //會員是否在線上 1 = 線上 , 2 = 離線
-    private String level;       //會員等級 一般 = ordinary , 金 = gold , 白金 = platinum , 鑽石 = diamond ,
-    private String vippay;      //會員是否在線上 1 = 付費會員 , 2 = 未付費會員
-    private String viplevel;    //VIP會員等級 超級VIP = svip , VIP = vip
+    private String uid;             //會員UID
+    private String userloginclass;  //會員登入類別        1 = Firebase註冊 , 2 = google , 3 = Facebook , 4 = Github , 5 = Apple
+    private String userimage;       //會員大頭照
+    private String username;        //會員名字
+    private String email;           //會員信箱
+    private String password;        //會員密碼
+    private String phone;           //會員手機號碼
+    private String address;         //會員地址
+    private String online;          //會員是否在線上       1 = 線上 , 2 = 離線
+    private String level;           //會員等級          一般 = ordinary , 金 = gold , 白金 = platinum , 鑽石 = diamond ,
+    private String vippay;          //會員是否在線上       1 = 付費會員 , 2 = 未付費會員
+    private String viplevel;        //VIP會員等級       超級VIP = svip , VIP = vip
+    private String usertoken;       //會員Token          ( 預設 null )
 
     public MemberUser() {
     }
@@ -21,6 +24,8 @@ public class MemberUser implements Serializable {
     public String toString() {
         return "User{" +
                 "uid='" + uid + '\'' +
+                ", userloginclass='" + userloginclass + '\'' +
+                ", userimage='" + userimage + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
@@ -30,7 +35,24 @@ public class MemberUser implements Serializable {
                 ", level='" + level + '\'' +
                 ", vippay='" + vippay + '\'' +
                 ", viplevel='" + viplevel + '\'' +
+                ", usertoken='" + usertoken + '\'' +
                 '}';
+    }
+
+    public MemberUser(String uid, String userloginclass, String userimage, String username, String email, String password, String phone, String address, String online, String level, String vippay, String viplevel, String usertoken) {
+        this.uid = uid;
+        this.userloginclass = userloginclass;
+        this.userimage = userimage;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.online = online;
+        this.level = level;
+        this.vippay = vippay;
+        this.viplevel = viplevel;
+        this.usertoken = usertoken;
     }
 
     public String getUid() {
@@ -39,6 +61,14 @@ public class MemberUser implements Serializable {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getUserimage() {
+        return userimage;
+    }
+
+    public void setUserimage(String userimage) {
+        this.userimage = userimage;
     }
 
     public String getUsername() {
@@ -111,5 +141,21 @@ public class MemberUser implements Serializable {
 
     public void setViplevel(String viplevel) {
         this.viplevel = viplevel;
+    }
+
+    public String getUserloginclass() {
+        return userloginclass;
+    }
+
+    public void setUserloginclass(String userloginclass) {
+        this.userloginclass = userloginclass;
+    }
+
+    public String getUsertoken() {
+        return usertoken;
+    }
+
+    public void setUsertoken(String usertoken) {
+        this.usertoken = usertoken;
     }
 }

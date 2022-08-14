@@ -72,18 +72,18 @@ public class WelcomeFragment extends Fragment {
                 NavController navController = Navigation.findNavController(view);
                 navController.navigate(R.id.action_welcome_to_login,bundle);
             }
-        }, 5000);
+        }, 1500);
 
 
     }
 
-    private void handleImageview() {
-        iv_Welcome_Logo.setOnClickListener( view -> {
-            bundle = new Bundle();
-            NavController navController = Navigation.findNavController(view);
-            navController.navigate(R.id.action_welcome_to_login,bundle);
-        });
-    }
+//    private void handleImageview() {
+//        iv_Welcome_Logo.setOnClickListener( view -> {
+//            bundle = new Bundle();
+//            NavController navController = Navigation.findNavController(view);
+//            navController.navigate(R.id.action_welcome_to_login,bundle);
+//        });
+//    }
 
     private void findViews(View view) {
         iv_Welcome_Logo = view.findViewById(R.id.iv_Welcome_Logo);

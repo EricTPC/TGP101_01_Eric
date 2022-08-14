@@ -13,12 +13,20 @@
         android:id="@+id/it_Project"
         android:name="idv.tgp10101.eric.forntpage.trip_project.ProjectListFragment"
         android:label="fragment_project_list"
-        tools:layout="@layout/fragment_project_list" />
+        tools:layout="@layout/fragment_project_list" >
+        <action
+            android:id="@+id/action_it_Project_to_it_Test01"
+            app:destination="@id/it_Test01" />
+    </fragment>
     <fragment
         android:id="@+id/it_Info"
         android:name="idv.tgp10101.eric.forntpage.dataquery_project.DataqueryFragment"
         android:label="fragment_dataquery"
-        tools:layout="@layout/fragment_dataquery" />
+        tools:layout="@layout/fragment_dataquery" >
+        <action
+            android:id="@+id/action_it_Info_to_gpsNav"
+            app:destination="@id/gpsNavFragment" />
+    </fragment>
     <fragment
         android:id="@+id/it_Member"
         android:name="idv.tgp10101.eric.forntpage.members_projrct.MemberListFragment"
@@ -27,6 +35,9 @@
         <action
             android:id="@+id/action_it_Member_to_friendList"
             app:destination="@id/friendListFragment" />
+        <action
+            android:id="@+id/action_it_Member_to_memberInfo"
+            app:destination="@id/memberInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/it_Test01"
@@ -44,9 +55,6 @@
         <action
             android:id="@+id/action_friendList_to_friendUpdate"
             app:destination="@id/friendUpdateFragment" />
-        <action
-            android:id="@+id/action_friendList_to_it_Member"
-            app:destination="@id/it_Member" />
     </fragment>
     <fragment
         android:id="@+id/friendInsertFragment"
@@ -58,4 +66,22 @@
         android:name="idv.tgp10101.eric.forntpage.members_projrct.FriendUpdateFragment"
         android:label="fragment_friend_update"
         tools:layout="@layout/fragment_friend_update" />
+    <fragment
+        android:id="@+id/memberInfoFragment"
+        android:name="idv.tgp10101.eric.forntpage.members_projrct.MemberInfoFragment"
+        android:label="fragment_member_info"
+        tools:layout="@layout/fragment_member_info" >
+        <action
+            android:id="@+id/action_memberInfo_to_it_Member"
+            app:destination="@id/it_Member" />
+    </fragment>
+    <fragment
+        android:id="@+id/gpsNavFragment"
+        android:name="idv.tgp10101.eric.forntpage.dataquery_project.GpsNavFragment"
+        android:label="fragment_gps_nav"
+        tools:layout="@layout/fragment_gps_nav" >
+        <action
+            android:id="@+id/action_gpsNav_to_it_Info"
+            app:destination="@id/it_Info" />
+    </fragment>
 </navigation>

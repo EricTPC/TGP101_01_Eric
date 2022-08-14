@@ -1,8 +1,9 @@
 package idv.tgp10101.eric.forntpage.trip_project;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -10,15 +11,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,13 +38,15 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
@@ -52,23 +56,29 @@ import java.util.List;
 
 import idv.tgp10101.eric.Attractions;
 import idv.tgp10101.eric.R;
+import idv.tgp10101.eric.Spot;
 
 public class TakePictureFragment extends Fragment {
     private static final String TAG = "TAG_TakePictureFragment";
     private static final String FILENAME = "Attractions";
     private Activity activity;
-    private Button button,bt_Save,bt_TakePc_NewPc,bt_02,bt_03;
-    private TextView textView,tv_TakePc_Datetime;
+    private FirebaseAuth auth;
+    private FirebaseFirestore db;
+    private FirebaseStorage storage;
+    private Bundle bundle;
+    private Button button,bt_Save,bt_TakePic_NewPc,bt_02,bt_03;
+    private TextView textView,tv_TakePic_Datetime;
     private ImageView imageView,ivPicture;
-    private EditText editText,et_TakePc_Name,et_TakePc_Des;
-    private ActivityResultLauncher<Uri> takePicLauncher;
-    private ActivityResultLauncher<Intent> cropPicLauncher;
-    private ActivityResultLauncher<Intent> pickPicLauncher;
+    private EditText editText,et_TakePic_Name,et_TakePic_Des;
+    private ActivityResultLauncher<Intent> takePicLauncher2;
+    private ActivityResultLauncher<Intent> cropPicLauncher2;
+    private ActivityResultLauncher<Intent> pickPicLauncher2;
+    private Uri contentUri; // 拍照需要的Uri
+    private Uri cropImageUri; // 截圖的Uri
+    private boolean pictureTaken;
     private File file;
-    private Uri srcUri;
     private Attractions attractions;
     private Handler mHandler;
-    private ContentResolver contentResolver;
     private RecyclerView rv_Att_Pic;
     private Resources resources;
     private List<String> attList = new ArrayList<>();
@@ -77,11 +87,15 @@ public class TakePictureFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = getActivity();
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        attractions = new Attractions();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        activity = getActivity();
         requireActivity().setTitle("拍照頁面");
         return inflater.inflate(R.layout.fragment_take_picture, container, false);
     }
@@ -89,144 +103,100 @@ public class TakePictureFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        contentResolver = activity.getContentResolver();
-        takePicLauncher = getTakePicLauncher();
-        cropPicLauncher = getCropPicLauncher();
-        pickPicLauncher = getPickPicLauncher();
+        takePicLauncher2 = getTakePicLauncher2();
+        cropPicLauncher2 = getCropPicLauncher2();
+        pickPicLauncher2 = getPickPicLauncher2();
         resources = getResources();
         findViews(view);
         handleButton();
         load();
         handleRecyclerView();
-
-
     }
 
+    private ActivityResultLauncher<Intent> getPickPicLauncher2() {
+        return registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                this::pickPictureResult2);
+    }
+    private ActivityResultLauncher<Intent> getTakePicLauncher2() {
+        return registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                this::takePictureResult2);
+    }
+    private ActivityResultLauncher<Intent> getCropPicLauncher2() {
+        return registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                this::cropPictureResult2);
+    }
+    private void takePictureResult2(ActivityResult result) {
+        if (result.getResultCode() == RESULT_OK) {
+            crop2(contentUri);
+        }
+    }
+    private void pickPictureResult2(ActivityResult result) {
+        if (result.getResultCode() == RESULT_OK) {
+            if (result.getData() != null) {
+                crop2(result.getData().getData());
+            }
+        }
+    }
+    private void crop2(Uri sourceImageUri) {
+        File file = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        file = new File(file, "picture_cropped.jpg");
+        Uri destinationUri = Uri.fromFile(file);
+        Intent cropIntent = UCrop.of(sourceImageUri, destinationUri)
+//                .withAspectRatio(16, 9) // 設定裁減比例
+//                .withMaxResultSize(500, 500) // 設定結果尺寸不可超過指定寬高
+                .getIntent(requireContext());
+        cropPicLauncher2.launch(cropIntent);
+    }
+    // 拍照或挑選照片完畢後都會截圖，截圖完畢會呼叫此方法
+    private void cropPictureResult2(ActivityResult result) {
+        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+            cropImageUri = UCrop.getOutput(result.getData());
+            if (cropImageUri != null) {
+                Bitmap bitmap = null;
+                try {
+                    bitmap = BitmapFactory.decodeStream(
+                            requireContext().getContentResolver().openInputStream(cropImageUri));
+                } catch (IOException e) {
+                    Log.e(TAG, e.toString());
+                }
+                if (bitmap != null) {
+                    attList.set(rv_position,file.getAbsolutePath());
+                    ivPicture.setImageBitmap(bitmap);
+                    pictureTaken = true;
+                } else {
+                    ivPicture.setImageResource(R.drawable.no_image);
+                    pictureTaken = false;
+                }
+            }
+        }
+    }
 
 
     private void findViews(View view) {
-        bt_Save = view.findViewById(R.id.bt_TakePc_Save);
-        tv_TakePc_Datetime = view.findViewById(R.id.tv_TakePc_Datetime);
-        et_TakePc_Name = view.findViewById(R.id.et_TakePc_Name);
-        et_TakePc_Des = view.findViewById(R.id.et_TakePc_Des);
+        bt_Save = view.findViewById(R.id.bt_TakePic_Save);
+        tv_TakePic_Datetime = view.findViewById(R.id.tv_TakePic_Datetime);
+        et_TakePic_Name = view.findViewById(R.id.et_TakePic_Name);
+        et_TakePic_Des = view.findViewById(R.id.et_TakePic_Des);
         rv_Att_Pic = view.findViewById(R.id.rv_Att_Pic);
-        bt_TakePc_NewPc = view.findViewById(R.id.bt_TakePc_NewPc);
+        bt_TakePic_NewPc = view.findViewById(R.id.bt_TakePic_NewPic);
         bt_02 = view.findViewById(R.id.bt_02);
         bt_03 = view.findViewById(R.id.bt_03);
     }
-    //選擇相簿內照片
-    private ActivityResultLauncher<Intent> getPickPicLauncher() {
-        return registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), activityResult -> {
-                    /** 4. 取得圖像 **/
-                    if (activityResult.getResultCode() != Activity.RESULT_OK) {
-                        return;
-                    }
-                    try {
-                        // 4.1 取得Uri物件
-                        Uri uri = activityResult.getData().getData();
-
-
-                        Bitmap bitmap = null;
-                        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.P) {
-                            // Android 9-
-                            // 4.2 取得InputStream物件
-                            InputStream is = activity.getContentResolver().openInputStream(uri);
-                            // 4.3 取得Bitmap物件
-                            bitmap = BitmapFactory.decodeStream(is);
-                        } else {
-                            // Android 9(+
-                            // 	4.2 從Uri物件建立ImageDecoder.Source物件
-                            ImageDecoder.Source source = ImageDecoder.createSource(
-                                    activity.getContentResolver(),
-                                    uri);
-                            // 4.3 取得Bitmap物件
-                            bitmap = ImageDecoder.decodeBitmap(source);
-                        }
-
-                        Log.d(TAG,"rv_position:  " + rv_position);
-                        Log.d(TAG,"file.getAbsolutePath():  " + file.getAbsolutePath());
-
-                        //{ position : filePath }
-                        attList.set(rv_position,file.getAbsolutePath());
-                        ivPicture.setImageBitmap(bitmap);
-                        Log.d(TAG,"attList： " + attList);
-                    } catch (IOException e) {
-                        Log.e(TAG, e.toString());
-                    }
-                }
-        );
-    }
-    //拍照
-    private ActivityResultLauncher<Uri> getTakePicLauncher() {
-        return  registerForActivityResult(
-                new ActivityResultContracts.TakePicture(), isOk -> {
-                    if (isOk) {
-                        crop();}
-                });
-    }
-
-    private void crop() {
-        try {
-            final Uri dstUri = Uri.fromFile(createImageFile());
-            UCrop uCrop = UCrop.of(srcUri, dstUri);
-            Intent intent = uCrop.getIntent(activity);
-            cropPicLauncher.launch(intent);
-//            getCropPicLauncher(position).launch(intent);
-        } catch (IOException e) {
-            Log.d(TAG, e.toString());
-        }
-    }
-    //裁切
-    private ActivityResultLauncher<Intent> getCropPicLauncher() {
-        return registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                activityResult -> {
-                    if (activityResult == null || activityResult.getResultCode() != Activity.RESULT_OK) {
-                        return;
-                    }
-                    try {
-                        Intent intent = activityResult.getData();
-                        if (intent == null) {
-                            return;
-                        }
-                        Uri resultUri = UCrop.getOutput(intent);
-
-                        Bitmap bitmap = null;
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-                            bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(resultUri));
-                        } else {
-                            ImageDecoder.Source source = ImageDecoder.createSource(contentResolver, resultUri);
-                            bitmap = ImageDecoder.decodeBitmap(source);
-                        }
-//                        bitmap > file
-//                        { position : filePath }
-                        Log.d(TAG,"rv_position： " + rv_position);
-                        Log.d(TAG,"file.getAbsolutePath()： " + file.getAbsolutePath());
-                        Log.d(TAG,"bitmap： " + bitmap);
-
-                        //{ position : filePath }
-                        attList.set(rv_position,file.getAbsolutePath());
-                        ivPicture.setImageBitmap(bitmap);
-                        Log.d(TAG,"attList： " + attList);
-                    } catch (IOException e) {
-                        Log.e(TAG, e.toString());
-                    }
-                });
-    }
-
     private void handleButton() {
         bt_Save.setOnClickListener(view -> save() );
-
-        // 新增 RecyclerView 內 iv_Pic 的 屠格
-        bt_TakePc_NewPc.setOnClickListener( view -> {
+        bt_02.setOnClickListener(view -> cloudsave() );
+        // 新增 RecyclerView 內 iv_Pic 的 圖格
+        bt_TakePic_NewPc.setOnClickListener( view -> {
             addlist();
             rv_Att_Pic.setAdapter(new TakePictureFragment.Myadapter(activity, attList));
         });
     }
     //RecyclerView建立
     private void handleRecyclerView() {
-        getAttList();
+//        getAttList();
         rv_Att_Pic.setAdapter(new TakePictureFragment.Myadapter(activity, attList));
         rv_Att_Pic.setLayoutManager(new GridLayoutManager(activity, 2));
     }
@@ -242,6 +212,79 @@ public class TakePictureFragment extends Fragment {
         attList.add(null);
         return attList;
     }
+    private void cloudsave(){
+
+        final String id = db.collection("Attractions").document().getId();
+        Log.d(TAG, "id：　" + id) ;
+        attList.add(id);
+        // 新增 setimagelist(attList)
+        attractions.setTakePic_Uid(id);
+        attractions.setTakePic_PicList(attList); // 完畢  物件要存至雲端資料庫
+        Log.d(TAG, "attractions.getTakePic_Uid()：　"+ attractions.getTakePic_Uid()) ;
+
+        //儲存 標題 文字
+        final String takePic_Name = String.valueOf(et_TakePic_Name.getText());
+        attractions.setTakePic_Title(takePic_Name);
+        Log.d(TAG, "attractions.getTakePic_Title()：　"+ attractions.getTakePic_Title()) ;
+        //儲存 描述 文字
+        final String takePic_des = String.valueOf(et_TakePic_Des.getText());
+        attractions.setTakePic_Des(takePic_des);
+        Log.d(TAG, "attractions.getTakePic_Des()：　"+ attractions.getTakePic_Des()) ;
+        //儲存 拍照 or 選擇相簿的照片
+        final List<String> picList = attList;
+        attractions.setTakePic_PicList(picList);
+        Log.d(TAG, "attractions.getTakePic_PicList()：　"+ attractions.getTakePic_PicList()) ;
+
+        final String imagePath = getString(R.string.app_name) + "/images/" + "/" + attractions.getTakePic_Title() +"/"+ attractions.getTakePic_Uid();
+
+        for ( String att: attList ){
+            File uriFile = new File(att);
+            storage.getReference().child(imagePath).putFile(Uri.fromFile(uriFile))
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, getString(R.string.textImageUploadSuccess));
+                            // 圖檔新增成功再將圖檔路徑存入spot物件所代表的document內
+                            attractions.setString_Image(imagePath);
+                        } else {
+                            String message = task.getException() == null ?
+                                    getString(R.string.textImageUploadFail) :
+                                    task.getException().getMessage();
+                            Log.e(TAG, "message: " + message);
+                            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                        }
+                        // 無論圖檔上傳成功或失敗都要將文字資料新增至DB
+//                            addOrReplaceA(attractions);
+                    });
+        }
+//        if (pictureTaken) {
+//            // document ID成為image path一部分，避免與其他圖檔名稱重複
+//
+////        }else {
+//////            addOrReplaceA(attractions);
+//        }
+    }
+
+    private void addOrReplaceA(final Attractions attractions) {
+//         如果Firestore沒有該ID的Document就建立新的，已經有就更新內容
+        db.collection("Attractions").document(attractions.getTakePic_Uid()).set(attractions)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        String message = getString(R.string.textInserted)
+                                + " with ID: " + attractions.getTakePic_Uid();
+                        Log.d(TAG, message);
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                        // 新增完畢回上頁
+                        Navigation.findNavController(et_TakePic_Name).popBackStack();
+                    } else {
+                        String message = task.getException() == null ?
+                                getString(R.string.textInsertFail) :
+                                task.getException().getMessage();
+                        Log.e(TAG, "message: " + message);
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     //存檔
     private void save(){
         try (
@@ -249,17 +292,17 @@ public class TakePictureFragment extends Fragment {
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
         ){
             //儲存 標題 文字
-            final String searchpc = String.valueOf(et_TakePc_Name.getText());
+            final String takePic_Name = String.valueOf(et_TakePic_Name.getText());
+
             //儲存 描述 文字
-            final String des = String.valueOf(et_TakePc_Des.getText());
+            final String takePic_des = String.valueOf(et_TakePic_Des.getText());
             //儲存 拍照 or 選擇相簿的照片
-            //存檔  MAP{position:filePath}儲存////////////
-            final List<String> imageList = attList;
-//            final String image = file.getAbsolutePath();
-            final Attractions attractions = new Attractions(searchpc,des,imageList);
+            final List<String> picList = attList;
+
+            final Attractions attractions = new Attractions(takePic_Name,takePic_des,picList);
             oos.writeObject(attractions);
             Toast.makeText(activity, "檔案儲存成功", Toast.LENGTH_SHORT).show();
-            Log.d(TAG,"imageList： " + imageList);
+            Log.d(TAG,"imageList： " + picList);
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -271,23 +314,26 @@ public class TakePictureFragment extends Fragment {
                 ObjectInputStream ois = new ObjectInputStream(fis);
              ){
             final Attractions attractions = (Attractions) ois.readObject();
-            et_TakePc_Name.setText(String.valueOf(attractions.getSearchpc()));
-            et_TakePc_Des.setText(String.valueOf(attractions.getDes()));
+            et_TakePic_Name.setText(String.valueOf(attractions.getTakePic_Name()));
+            et_TakePic_Des.setText(String.valueOf(attractions.getTakePic_Des()));
 //            MAP{position:filePath}  轉成LIST
-
-            File file = new File(String.valueOf(attractions.getPicList()));
-            Bitmap bitmap = null;
-            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.P) {
-                bitmap = BitmapFactory.decodeFile(file.getPath());//tostring
-            } else {
-                try {
-                    ImageDecoder.Source source = ImageDecoder.createSource(file);
-                    bitmap = ImageDecoder.decodeBitmap(source);
-                } catch (IOException e) {
-                    Log.e(TAG, e.toString());
-                }
-            }
-            ivPicture.setImageBitmap(bitmap);
+            // List 讀取?????
+            attList = attractions.getTakePic_PicList();
+            File file = new File(String.valueOf(attractions.getTakePic_PicList()));
+            Log.d(TAG,"filefilefilefile： " + file);
+//
+//            Bitmap bitmap = null;
+//            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.P) {
+//                bitmap = BitmapFactory.decodeFile(file.getPath());//tostring
+//            } else {
+//                try {
+//                    ImageDecoder.Source source = ImageDecoder.createSource(file);
+//                    bitmap = ImageDecoder.decodeBitmap(source);
+//                } catch (IOException e) {
+//                    Log.e(TAG, e.toString());
+//                }
+//            }
+//            ivPicture.setImageBitmap(bitmap);
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -295,7 +341,6 @@ public class TakePictureFragment extends Fragment {
 
     class Myadapter extends RecyclerView.Adapter<Myadapter.MyViewHolder>{
         Context context ;
-//        List<Attractions> list;
         List<String> list;
         public Myadapter(Context context, List<String> list) {
             this.context = context;
@@ -329,25 +374,28 @@ public class TakePictureFragment extends Fragment {
                     //選單 --- 拍照
                     if (resId == R.id.it_takePic) {
                         try {
+                            // 5. 實例化Intent物件
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             file = createImageFile();
-                            srcUri = FileProvider.getUriForFile(context,activity.getPackageName() + ".fileProvider",file);
+                            contentUri = FileProvider.getUriForFile(requireContext(),requireContext().getPackageName() + ".fileProvider",file);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
                             // 6. 執行
-                            takePicLauncher.launch(srcUri);
+                            takePicLauncher2.launch(intent);
                             ivPicture = ViewHolder.iv_Pic;
-                            rv_position = position;
+                            rv_position = ViewHolder.getAdapterPosition();
                         } catch (ActivityNotFoundException | IOException e) {
                             Log.e(TAG, e.toString());
                         }
                     //選單 --- 選擇照片
                     } else if (resId == R.id.it_pickPic) {
                         try {
-                            file = createImageFile();
                             // 5. 實例化Intent物件
                             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            file = createImageFile();
                             // 6. 執行
-                            pickPicLauncher.launch(intent);
+                            pickPicLauncher2.launch(intent);
                             ivPicture = ViewHolder.iv_Pic;
-                            rv_position = position;
+                            rv_position = ViewHolder.getAdapterPosition();
                         } catch (ActivityNotFoundException  | IOException e) {
                             Log.e(TAG, e.toString());
                         }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D5F5F9"
+    android:background="#AFD5F5F9"
     tools:context=".login_project.LoginFragment">
 
     <TextView
@@ -74,7 +74,7 @@
         android:layout_marginEnd="24dp"
         android:ems="10"
         android:hint="請輸入使用者名稱"
-        android:text="guest"
+        android:text="guest@test.com"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Signin" />
 
@@ -85,7 +85,7 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="請輸入使用者密碼"
-        android:text="guest"
+        android:text="123456"
         app:layout_constraintEnd_toEndOf="@+id/et_Username"
         app:layout_constraintStart_toStartOf="@+id/et_Username"
         app:layout_constraintTop_toBottomOf="@+id/et_Username" />
