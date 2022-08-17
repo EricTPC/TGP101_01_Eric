@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_it_Info_to_gpsNav"
             app:destination="@id/gpsNavFragment" />
+        <action
+            android:id="@+id/action_it_Info_to_testUse"
+            app:destination="@id/testUseFragment" />
     </fragment>
     <fragment
         android:id="@+id/it_Member"
@@ -84,4 +87,9 @@
             android:id="@+id/action_gpsNav_to_it_Info"
             app:destination="@id/it_Info" />
     </fragment>
+    <fragment
+        android:id="@+id/testUseFragment"
+        android:name="idv.tgp10101.eric.forntpage.TestUseFragment"
+        android:label="fragment_test_use"
+        tools:layout="@layout/fragment_test_use" />
 </navigation>

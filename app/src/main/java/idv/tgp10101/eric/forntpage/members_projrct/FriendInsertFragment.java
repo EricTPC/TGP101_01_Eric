@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -43,7 +44,8 @@ import idv.tgp10101.eric.R;
 import idv.tgp10101.eric.Spot;
 
 public class FriendInsertFragment extends Fragment {
-    private static final String TAG = "TAG_FriendInsertFragment";
+    private static final String TAG = "TAG_FriendInsert";
+    private SharedPreferences sharedPreferences;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
     private ImageView ivSpot;
@@ -141,17 +143,21 @@ public class FriendInsertFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        findViews(view);
-//        handletakePicture();
-//        handlepickPicture();
-//        handleButtom();
-        ivSpot = view.findViewById(R.id.ivSpot);
-        etName = view.findViewById(R.id.etName);
-        etPhone = view.findViewById(R.id.etPhone);
-        etAddress = view.findViewById(R.id.etAddress);
-        etWeb = view.findViewById(R.id.etWeb);
+        findViews(view);
+        handletakePicture();
+        handlepickPicture();
+        handleButtom();
+    }
 
-        view.findViewById(R.id.btTakePicture).setOnClickListener(v -> {
+    private void handlepickPicture() {
+        btPickPicture.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            pickPictureLauncher.launch(intent);
+        });
+    }
+    private void handletakePicture() {
+        btTakePicture.setOnClickListener(v -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             File dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
             if (dir != null && !dir.exists()) {
@@ -171,14 +177,9 @@ public class FriendInsertFragment extends Fragment {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
-        view.findViewById(R.id.btPickPicture).setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            pickPictureLauncher.launch(intent);
-        });
-
-        view.findViewById(R.id.btFinishInsert).setOnClickListener(v -> {
+    }
+    private void handleButtom() {
+        btFinishInsert.setOnClickListener(v -> {
             // 先取得插入document的ID
             final String id = db.collection("spots").document().getId();
             spot.setId(id);
@@ -223,89 +224,9 @@ public class FriendInsertFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.btCancel).setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
-    }
-
-    private void handlepickPicture() {
-        btPickPicture.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            pickPictureLauncher.launch(intent);
+        btCancel.setOnClickListener(view -> {
+            Navigation.findNavController(view).popBackStack();
         });
-    }
-    private void handletakePicture() {
-        btTakePicture.setOnClickListener(view -> {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            File dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-            if (dir != null && !dir.exists()) {
-                if (!dir.mkdirs()) {
-                    Log.e(TAG, getString(R.string.textDirNotCreated));
-                    return;
-                }
-            }
-            file = new File(dir, "picture.jpg");
-            contentUri = FileProvider.getUriForFile(
-                    requireContext(), requireContext().getPackageName() + ".provider", file);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
-            try {
-                takePictureLauncher.launch(intent);
-            } catch (ActivityNotFoundException e) {
-                Toast.makeText(requireContext(), R.string.textNoCameraAppFound,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void handleButtom() {
-
-
-        btFinishInsert.setOnClickListener(v -> {
-            // 先取得插入document的ID
-            final String id = db.collection("friends").document().getId();
-            friend.setId(id);
-
-            String name = etName.getText().toString().trim();
-            if (name.length() <= 0) {
-                Toast.makeText(requireContext(), R.string.textNameIsInvalid,
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
-            String phone = etPhone.getText().toString().trim();
-            String address = etAddress.getText().toString().trim();
-            String web = etWeb.getText().toString().trim();
-
-            friend.setName(name);
-            friend.setPhone(phone);
-            friend.setEmail(address);
-            friend.setWeb(web);
-
-            // 如果有拍照，上傳至Firebase storage
-            if (pictureTaken) {
-                // document ID成為image path一部分，避免與其他圖檔名稱重複
-                final String imagePath = getString(R.string.app_name) + "/images/" + friend.getId();
-                Log.d(TAG, "cropImageUricropImageUri: " + cropImageUri);
-                storage.getReference().child(imagePath).putFile(cropImageUri)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, getString(R.string.textImageUploadSuccess));
-                                // 圖檔新增成功再將圖檔路徑存入spot物件所代表的document內
-                                friend.setImagePath(imagePath);
-                            } else {
-                                String message = task.getException() == null ?
-                                        getString(R.string.textImageUploadFail) :
-                                        task.getException().getMessage();
-                                Log.e(TAG, "message: " + message);
-                                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
-                            }
-                            // 無論圖檔上傳成功或失敗都要將文字資料新增至DB
-                            addOrReplaceB(friend);
-                        });
-            } else {
-                addOrReplaceB(friend);
-            }
-        });
-
-
-        btCancel.setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
     }
     private void findViews(View view) {
         ivSpot = view.findViewById(R.id.ivSpot);

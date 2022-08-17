@@ -1,5 +1,6 @@
 package idv.tgp10101.eric.forntpage.members_projrct;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import idv.tgp10101.eric.Spot;
 
 public class FriendListFragment extends Fragment {
     private static final String TAG = "TAG_FriendListFragment";
+    private SharedPreferences sharedPreferences;
     private TextView textView;
     private RecyclerView rvSpots;
     private SearchView searchView;
@@ -55,6 +57,7 @@ public class FriendListFragment extends Fragment {
         storage = FirebaseStorage.getInstance();
         friends = new ArrayList<>();
         spots = new ArrayList<>();
+
         listenToSpots();
     }
 
@@ -117,19 +120,16 @@ public class FriendListFragment extends Fragment {
     public void onPause() {
         super.onPause();
     }
-
     @Override
     //停止Fragment回撥，Fragment完全不可見
     public void onStop() {
         super.onStop();
     }
-
     @Override
     //銷燬與Fragment有關的檢視，但未與Activity解除繫結
     public void onDestroyView() {
         super.onDestroyView();
     }
-
     @Override
     //與onAttach相對應，當Fragment與Activity關聯被取消時呼叫
     public void onDestroy() {

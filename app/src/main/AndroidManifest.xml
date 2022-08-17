@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="idv.tgp10101.eric">
     <!--使⽤網路的權限-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <!--檢查網路狀態的權限-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

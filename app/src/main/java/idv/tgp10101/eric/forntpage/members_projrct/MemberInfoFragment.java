@@ -1,6 +1,10 @@
 package idv.tgp10101.eric.forntpage.members_projrct;
 
+import static idv.tgp10101.eric.util.Constants.PREFERENCES_FILE;
+
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +31,9 @@ import idv.tgp10101.eric.R;
 
 
 public class MemberInfoFragment extends Fragment {
+    private static final String TAG = "TAG_MemberInfo_";
     private Activity activity;
+    private SharedPreferences sharedPreferences;
     private Bundle bundle;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
@@ -47,6 +54,7 @@ public class MemberInfoFragment extends Fragment {
         activity = getActivity();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        sharedPreferences = activity.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -62,9 +70,20 @@ public class MemberInfoFragment extends Fragment {
 
         findViews(view);
         handleButton();
-
-
+        showdata();
+        Log.e(TAG, "savePreferences(\"會員名字\" , sharedPreferences );" + sharedPreferences.getString("會員名字","會員名字"));
     }
+
+    private void showdata() {
+        et_Memberinfo_Username.setText(sharedPreferences.getString("會員名字","111"));
+
+        et_Memberinfo_Email.setText(sharedPreferences.getString("會員信箱","111"));
+        et_Memberinfo_Phone.setText(sharedPreferences.getString("會員手機號碼","111"));
+        et_Memberinfo_Address.setText(sharedPreferences.getString("會員地址","111"));
+        tv_Memberinfo_SetUid.setText(sharedPreferences.getString("會員UID","111"));
+        tv_Memberinfo_SetLevel.setText(sharedPreferences.getString("會員等級","111"));
+    }
+
     private void findViews(View view) {
         iv_Memberinfo_Userimage = view.findViewById(R.id.iv_Memberinfo_Userimage);
         et_Memberinfo_Username = view.findViewById(R.id.et_Memberinfo_Username);

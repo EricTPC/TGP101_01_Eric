@@ -1,6 +1,7 @@
 package idv.tgp10101.eric.login_project;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ import idv.tgp10101.eric.R;
 
 public class SignFragment extends Fragment {
     private final static String TAG = "TAG_SignFragment";
+    private SharedPreferences sharedPreferences;
     private Activity activity;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
@@ -64,7 +66,7 @@ public class SignFragment extends Fragment {
     private void findViews(View view) {
         et_Sign_Name = view.findViewById(R.id.et_Sign_Name);
         et_Sign_Password = view.findViewById(R.id.et_Sign_Password);
-        et_Sign_Password2 = view.findViewById(R.id.et_Sign_Password2);
+//        et_Sign_Password2 = view.findViewById(R.id.et_Sign_Password2);
         et_Sign_Phone = view.findViewById(R.id.et_Sign_Phone);
         et_Sign_Email = view.findViewById(R.id.et_Sign_Email);
         bt_Sign_Ok = view.findViewById(R.id.bt_Sign_Ok);
@@ -76,10 +78,10 @@ public class SignFragment extends Fragment {
             MemberUser memberUser = new MemberUser();
             //會員UID = Uid ( Firebase自動抓取 )
 
-            //會員登入類別 = Userloginclass ( 1 = Firebase註冊 , 2 = google , 3 = Facebook , 4 = Github , 5 = Apple )
-            memberUser.setUserloginclass(null);
-            //會員大頭照 = Userimage
-            memberUser.setUserimage(null);
+            //會員登入類別 = Userloginclass ( 1 = Firebase註冊 , 2 = google , 3 = Facebook , 4 = Github , 5 = Apple 預設"0")
+            memberUser.setUserloginclass("0");
+            //會員大頭照 = Userimage  預設"0"
+            memberUser.setUserimage("0");
             //會員名字 = Username
             memberUser.setUsername(et_Sign_Name.getText().toString());
             //會員信箱 = Email
@@ -88,8 +90,8 @@ public class SignFragment extends Fragment {
             memberUser.setPassword(et_Sign_Password.getText().toString());
             //會員手機號碼 = Phone
             memberUser.setPhone(et_Sign_Phone.getText().toString());
-            //會員地址 = Address
-            memberUser.setAddress("1234");
+            //會員地址 = Address ( 預設 請輸入您的地址 )
+            memberUser.setAddress("請輸入您的地址");
             //會員是否在線上 = Online ( 1 = 線上 , 2 = 離線 ， 預設 2 )
             memberUser.setOnline("2");
             //會員等級 = Level ( 一般 = ordinary , 金 = gold , 白金 = platinum , 鑽石 = diamond ， 預設 ordinary )
@@ -98,8 +100,8 @@ public class SignFragment extends Fragment {
             memberUser.setVippay("2");
             //VIP會員等級 = Viplevel ( 超級VIP會員 = svip , VIP會員 = vip , 一般會員 = novip  ， 預設 novip )
             memberUser.setViplevel("novip");
-            //會員Token = Usertoken ( 預設 null )
-            memberUser.setUsertoken(null);
+            //會員Token = Usertoken ( 預設 "0" )
+            memberUser.setUsertoken("0");
 
 
             Log.d(TAG,"會員UID： " + memberUser.getUid());

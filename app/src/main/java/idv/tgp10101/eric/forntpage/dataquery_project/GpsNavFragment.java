@@ -1,7 +1,11 @@
 package idv.tgp10101.eric.forntpage.dataquery_project;
 
+import static idv.tgp10101.eric.util.Constants.PREFERENCES_FILE;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -34,6 +38,7 @@ import idv.tgp10101.eric.R;
 
 public class GpsNavFragment extends Fragment {
     private static final String TAG = "TAG_GpsNavFragment";
+    private SharedPreferences sharedPreferences;
     private FirebaseAuth auth;
     private Activity activity;
     private Bundle bundle;
@@ -48,6 +53,7 @@ public class GpsNavFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         bundle = getArguments();
         activity = getActivity();
+        sharedPreferences = activity.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -113,6 +119,7 @@ public class GpsNavFragment extends Fragment {
             NavController navController = Navigation.findNavController(view);
             navController.navigate(R.id.action_gpsNav_to_it_Info);
         });
+
         bt_Gps_PlaceOK.setOnClickListener(view -> {
             final Address addressOri = nameToLatLng(String.valueOf(et_Gps_PlaceA.getText()));
             final Address addressDest = nameToLatLng(String.valueOf(et_Gps_PlaceB.getText()));
@@ -136,9 +143,7 @@ public class GpsNavFragment extends Fragment {
             }
         });
     }
-    /**
-     * 41-1: 顯示指定地點
-     */
+    //顯示輸入點的位置
     private void location(final Editable text) {
         final Address address = nameToLatLng(String.valueOf(text));
         if (address == null) {
@@ -157,9 +162,7 @@ public class GpsNavFragment extends Fragment {
         }
     }
 
-    /**
-     * 41-2: 顯示街景圖
-     */
+    //顯示街景的
     private void streetView(final Editable text) {
         final Address address = nameToLatLng(String.valueOf(text));
         if (address == null) {
@@ -177,17 +180,13 @@ public class GpsNavFragment extends Fragment {
             startActivity(intent);
         }
     }
-    /**
-     * 4. 檢查是否有內建的Google Maps App
-     */
+
     private boolean isIntentAvailable(Intent intent) {
         PackageManager packageManager = activity.getPackageManager();
         return intent.resolveActivity(packageManager) != null;
     }
 
-    /**
-     * 地名/地址 轉 緯經度
-     */
+    //地址 經緯度轉換
     private Address nameToLatLng(final String name) {
         try {
             List<Address> addressList = geocoder.getFromLocationName(name, 1);

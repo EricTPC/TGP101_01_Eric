@@ -20,7 +20,7 @@
     <TextView
         android:id="@+id/tv_Sign_Name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="29dp"
         android:layout_marginEnd="32dp"
         android:text="姓名："
         android:textSize="24sp"
@@ -87,28 +87,6 @@
         app:layout_constraintStart_toStartOf="@+id/et_Sign_Name"
         app:layout_constraintTop_toBottomOf="@+id/et_Sign_Name" />
 
-    <TextView
-        android:id="@+id/tv_Sign_Password2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:text="請再次輸入："
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/et_Sign_Password2"
-        app:layout_constraintEnd_toStartOf="@+id/et_Sign_Password2"
-        app:layout_constraintTop_toTopOf="@+id/et_Sign_Password2" />
-
-    <EditText
-        android:id="@+id/et_Sign_Password2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/et_Sign_Password"
-        app:layout_constraintStart_toStartOf="@+id/et_Sign_Password"
-        app:layout_constraintTop_toBottomOf="@+id/et_Sign_Password" />
-
     <EditText
         android:id="@+id/et_Sign_Password"
         android:layout_width="wrap_content"
@@ -139,7 +117,7 @@
         android:text="註冊"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_Sign_Password2" />
+        app:layout_constraintTop_toBottomOf="@+id/et_Sign_Password" />
 
     <TextView
         android:id="@+id/textView"

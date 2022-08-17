@@ -1,7 +1,5 @@
-package idv.tgp10101.eric.forntpage.forntpage_project;
+package idv.tgp10101.eric.forntpage.trip_project;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,10 +12,9 @@ import android.view.ViewGroup;
 
 import idv.tgp10101.eric.R;
 
-public class FrontpageFragment extends Fragment {
-    private static final String TAG = "TAG_FrontpageFragment";
-    private SharedPreferences sharedPreferences;
-    private Activity activity;
+
+public class Update_TakePictureFragment extends Fragment {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +23,12 @@ public class FrontpageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        activity = getActivity();
-        requireActivity().setTitle("首頁");
-        return inflater.inflate(R.layout.fragment_frontpage, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_update__take_picture, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 }

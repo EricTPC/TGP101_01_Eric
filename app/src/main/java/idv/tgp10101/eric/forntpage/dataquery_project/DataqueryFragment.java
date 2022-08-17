@@ -1,6 +1,10 @@
 package idv.tgp10101.eric.forntpage.dataquery_project;
 
+import static idv.tgp10101.eric.util.Constants.PREFERENCES_FILE;
+
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,18 +13,20 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import idv.tgp10101.eric.util.Constants;
 import idv.tgp10101.eric.R;
 
 
 public class DataqueryFragment extends Fragment {
     private static final String TAG = "TAG_DataqueryFragment";
+    private SharedPreferences sharedPreferences;
     private Activity activity;
     private ImageView iv_GpsNav,iv_FoodSearch,iv_PlaceSearch,iv_Weather,iv_Currency;
     private ImageView iv_Emergency,iv_Working01,iv_Working02,iv_Working03;
@@ -36,6 +42,7 @@ public class DataqueryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         activity = getActivity();
+        sharedPreferences = activity.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
         requireActivity().setTitle("資料查詢");
         return inflater.inflate(R.layout.fragment_dataquery, container, false);
     }
@@ -77,6 +84,7 @@ public class DataqueryFragment extends Fragment {
         tv_Working03 = view.findViewById(R.id.tv_Working03);
     }
 
+
     private void handleButton() {
         iv_GpsNav.setOnClickListener(view -> {
             NavController navController = Navigation.findNavController(view);
@@ -88,13 +96,18 @@ public class DataqueryFragment extends Fragment {
         iv_Weather.setOnClickListener(view -> get_iv_Weather());
         iv_Currency.setOnClickListener(view -> get_iv_Currency());
         iv_Emergency.setOnClickListener(view -> get_iv_Emergency());
-        iv_Working01.setOnClickListener(view -> get_iv_Working01());
+        iv_Working01.setOnClickListener(view -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_it_Info_to_testUse);
+            get_iv_Working01();
+        });
         iv_Working02.setOnClickListener(view -> get_iv_Working02());
         iv_Working03.setOnClickListener(view -> get_iv_Working03());
     }
 
     private void get_iv_Working03() {
         Toast.makeText(activity, "功能尚未完成：構思中...", Toast.LENGTH_SHORT).show();
+
     }
 
     private void get_iv_Working02() {

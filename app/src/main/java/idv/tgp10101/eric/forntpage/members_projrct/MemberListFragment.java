@@ -1,7 +1,11 @@
 package idv.tgp10101.eric.forntpage.members_projrct;
 
+import static idv.tgp10101.eric.util.Constants.PREFERENCES_FILE;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,6 +35,7 @@ import idv.tgp10101.eric.R;
 
 public class MemberListFragment extends Fragment {
     private static final String TAG = "TAG_MemberListFragment";
+    private SharedPreferences sharedPreferences;
     private Activity activity;
     private ImageView iv_Person,iv_MemberInfo,iv_Friends,iv_Support,iv_Setting,iv_LogOut,iv_VipProject,iv_MemberClass;
     private TextView textView,tv_MemberClass,tv_MemberName,tv_MemberInfo,tv_Friends,tv_Support,tv_Setting,tv_LogOut,tv_VipProject;
@@ -43,6 +48,7 @@ public class MemberListFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         bundle = getArguments();
         activity = getActivity();
+        sharedPreferences = activity.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
 
     }
 
@@ -59,6 +65,9 @@ public class MemberListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         findViews(view);
         handleButton();
+        tv_MemberName.setText(sharedPreferences.getString("會員名字","111"));
+        tv_MemberClass.setText(sharedPreferences.getString("會員等級","111"));
+
     }
 
     private void handleButton() {

@@ -7,27 +7,37 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Attractions implements Serializable {
-    private List<String> takePic_PicList;        //圖檔路徑List
-    private String string_Image;         //圖檔路徑
     private Integer id;
     private int ImageResId;
     private String takePic_Uid;                     //UID
     private String takePic_Title;                   //抬頭
-    private String takePic_Name;                    //名稱
+    private String takePic_WriterName;              //作者名稱
     private String takePic_Describe,takePic_Des;    //描述
     private String takePic_Web;                     //網址
     private String takePic_Phone;                   //電話
     private String takePic_Address;                 //地址
-    private byte[] takePic_Image;                   //圖片儲存
+    private List<String> takePic_PicList;           //圖檔路徑List
+    private String takePic_Image;                   //圖檔路徑List的第一張照片
+//    private byte[] takePic_Image;                   //圖片儲存
 
 
     public Attractions() {
     }
 
-    public Attractions(String takePic_Name, String takePic_Des,List<String> takePic_PicList ) {
-        this.takePic_PicList = takePic_PicList;
-        this.takePic_Name = takePic_Name;
+
+    public Attractions(String takePic_Title, String takePic_Des, List<String> takePic_PicList, String takePic_Image) {
+        this.takePic_Title = takePic_Title;
         this.takePic_Des = takePic_Des;
+        this.takePic_PicList = takePic_PicList;
+        this.takePic_Image = takePic_Image;
+    }
+
+    public Attractions(String takePic_Title, String takePic_WriterName, String takePic_Des, List<String> takePic_PicList, String takePic_Image) {
+        this.takePic_Title = takePic_Title;
+        this.takePic_WriterName = takePic_WriterName;
+        this.takePic_Des = takePic_Des;
+        this.takePic_PicList = takePic_PicList;
+        this.takePic_Image = takePic_Image;
     }
 
     public List<String> getTakePic_PicList() {
@@ -38,6 +48,7 @@ public class Attractions implements Serializable {
         this.takePic_PicList = takePic_PicList;
     }
 
+
     public String getTakePic_Uid() {
         return takePic_Uid;
     }
@@ -46,12 +57,12 @@ public class Attractions implements Serializable {
         this.takePic_Uid = takePic_Uid;
     }
 
-    public String getString_Image() {
-        return string_Image;
+    public String getTakePic_Image() {
+        return takePic_Image;
     }
 
-    public void setString_Image(String string_Image) {
-        this.string_Image = string_Image;
+    public void setTakePic_Image(String string_Image) {
+        this.takePic_Image = string_Image;
     }
 
     public Integer getId() {
@@ -79,11 +90,11 @@ public class Attractions implements Serializable {
     }
 
     public String getTakePic_Name() {
-        return takePic_Name;
+        return takePic_WriterName;
     }
 
     public void setTakePic_Name(String takePic_Name) {
-        this.takePic_Name = takePic_Name;
+        this.takePic_WriterName = takePic_Name;
     }
 
     public String getTakePic_Describe() {
@@ -126,11 +137,4 @@ public class Attractions implements Serializable {
         this.takePic_Address = takePic_Address;
     }
 
-    public byte[] getTakePic_Image() {
-        return takePic_Image;
-    }
-
-    public void setTakePic_Image(byte[] takePic_Image) {
-        this.takePic_Image = takePic_Image;
-    }
 }

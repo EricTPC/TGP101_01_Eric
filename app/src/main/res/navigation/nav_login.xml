@@ -19,21 +19,15 @@
         <action
             android:id="@+id/action_login_to_sign"
             app:destination="@id/signFragment" />
+        <action
+            android:id="@+id/action_login_to_thirdResult"
+            app:destination="@id/thirdResultFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/takePictureFragment"
-        android:name="idv.tgp10101.eric.forntpage.trip_project.TakePictureFragment"
-        android:label="fragment_take_picture"
-        tools:layout="@layout/fragment_take_picture" />
     <fragment
         android:id="@+id/resultFragment"
         android:name="idv.tgp10101.eric.login_project.ResultFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" >
-        <action
-            android:id="@+id/action_result_to_takePicture"
-            app:destination="@id/takePictureFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_result" />
     <fragment
         android:id="@+id/forgetFragment"
         android:name="idv.tgp10101.eric.login_project.ForgetFragment"
@@ -78,5 +72,14 @@
         <action
             android:id="@+id/action_memberList_to_login"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/thirdResultFragment"
+        android:name="idv.tgp10101.eric.login_project.ThirdResultFragment"
+        android:label="fragment_third_result"
+        tools:layout="@layout/fragment_third_result" >
+        <action
+            android:id="@+id/action_thirdResult_to_result"
+            app:destination="@id/resultFragment" />
     </fragment>
 </navigation>

@@ -10,15 +10,20 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.io.IOException;
+
+import idv.tgp10101.eric.MemberUser;
+import idv.tgp10101.eric.R;
 
 public class test {
     private ActivityResultLauncher<Uri> takePicLauncher;
@@ -155,5 +160,83 @@ public class test {
 //                });
 //    }
 
+
+//    private void showAllMemberUsers() {
+//        db.collection("MemberUsers").get()
+//                .addOnCompleteListener(task -> {
+//                    if (task.isSuccessful() && task.getResult() != null) {
+//                        // 先清除舊資料後再儲存新資料
+//                        Log.d(TAG,"task.getResult()： " + task.getResult());
+//
+//                        if (!memberUser.isEmpty()) {
+//                            memberUser.clear();
+//                        }
+//
+//                        for (QueryDocumentSnapshot document : task.getResult()) {
+//                            memberUser.add(document.toObject(MemberUser.class));
+////                            MemberUser memberUser = document.getDocumentReference(MemberUser.class);
+////                            MemberUser memberUser2 = document.getDocument().toObject(MemberUser.class);
+////                            Log.d(TAG,"document.getData().keySet()： " + document.getData().keySet());
+////                            Log.d(TAG,"document.getData().values()： " + document.getData().values());
+////                            Log.d(TAG,"document.toObject(MemberUser.class))： " + document.toObject(MemberUser.class));
+////                            Log.d(TAG,"memberUser： " + memberUser);
+////                            Log.d(TAG,"memberUser： " + memberUser);
+////                            Log.d(TAG,"memberUser2： " + memberUser1);
+////                            Log.d(TAG,"document.getId()： " + document.getId());
+////                            Log.d(TAG,"document.getData()： " + document.getData());
+////                            paser_uid = (String) document.getData().get("uid");          //取得會員 會員UID
+////                            paser_userloginclass = (String) document.getData().get("userloginclass");          //取得會員 會員登入類別
+////                            paser_online = (String) document.getData().get("online");       //取得會員 會員是否在線上
+////                            paser_userimage = (String) document.getData().get("userimage");    //取得會員 會員大頭照路徑
+////                            paser_username = (String) document.getData().get("username");     //取得會員 會員名稱
+////                            paser_password = (String) document.getData().get("password");     //取得會員 會員密碼
+////                            paser_phone = (String) document.getData().get("phone");        //取得會員 會員電話
+////                            paser_email = (String) document.getData().get("email");        //取得會員 會員信箱
+////                            paser_address = (String) document.getData().get("address");      //取得會員 會員地址
+////                            paser_level = (String) document.getData().get("level");        //取得會員 會員等級
+////                            paser_vippay = (String) document.getData().get("vippay");       //取得會員 會員是否有VIP專案
+////                            paser_viplevel = (String) document.getData().get("viplevel");     //取得會員 VIP等級
+////                            paser_usertoken = (String) document.getData().get("usertoken");    //取得會員Token
+////                            savePreferences("會員UID", paser_uid);
+////                            savePreferences("會員登入類別" , paser_userloginclass );
+////                            savePreferences("會員大頭照" , paser_userimage );
+////                            savePreferences("會員名字" , paser_username );
+////                            savePreferences("會員信箱" , paser_email );
+////                            savePreferences("會員密碼" , paser_password );
+////                            savePreferences("會員手機號碼" , paser_phone );
+////                            savePreferences("會員地址" , paser_address );
+////                            savePreferences("會員是否在線上" , paser_online );
+////                            savePreferences("會員等級" , paser_level );
+////                            savePreferences("會員是否付費" , paser_vippay );
+////                            savePreferences("VIP會員等級" , paser_viplevel );
+////                            savePreferences("會員Token" , paser_usertoken );
+////                            Log.d(TAG,"document.getData().get(\"1111\")： " + paser_username );
+////                            Log.d(TAG,"會員UID： " + document.getData().get("uid"));
+////                            Log.d(TAG,"會員UID： " + sharedPreferences.getString("uid","000"));
+////                            Log.d(TAG,"會員登入類別： " + document.getData().get("userloginclass") );
+////                            Log.d(TAG,"會員大頭照： " + document.getData().get("userimage") );
+////                            Log.d(TAG,"會員名字： " + document.getData().get("username") );
+////                            Log.d(TAG,"會員信箱： " + document.getData().get("email") );
+////                            Log.d(TAG,"會員密碼： " + document.getData().get("password") );
+////                            Log.d(TAG,"會員手機號碼： " + document.getData().get("phone") );
+////                            Log.d(TAG,"會員地址： " + document.getData().get("address") );
+////                            Log.d(TAG,"會員是否在線上： " + document.getData().get("online") );
+////                            Log.d(TAG,"會員等級： " + document.getData().get("level") );
+////                            Log.d(TAG,"會員是否付費： " + document.getData().get("vippay") );
+////                            Log.d(TAG,"VIP會員等級： " + document.getData().get("viplevel") );
+////                            Log.d(TAG,"會員Token： " + document.getData().get("usertoken") );
+//                        }
+//
+//                    } else {
+//                        String message = task.getException() == null ?
+//                                getString(R.string.textNoSpotFound) :
+//                                task.getException().getMessage();
+//                        Log.e(TAG, "exception message: " + message);
+//                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//        Log.d(TAG,"會員UID： " + sharedPreferences.getString("uid","000"));
+//        Log.d(TAG,"會員會員會員會員會員： " );
+//    }
 
 }

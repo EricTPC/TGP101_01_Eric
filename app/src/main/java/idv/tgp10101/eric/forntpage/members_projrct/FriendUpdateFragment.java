@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -45,6 +46,7 @@ import idv.tgp10101.eric.Spot;
 
 public class FriendUpdateFragment extends Fragment {
     private static final String TAG = "TAG_FriendUpdate";
+    private SharedPreferences sharedPreferences;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
     private ImageView ivSpot;

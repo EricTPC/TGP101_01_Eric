@@ -2,6 +2,7 @@ package idv.tgp10101.eric.login_project;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ import idv.tgp10101.eric.R;
 
 public class WelcomeFragment extends Fragment {
     private static final String TAG = "TAG_WelcomeFragment";
+    private SharedPreferences sharedPreferences;
     private Activity activity;
     private Button bt_SignOut_Google,bt_SignOut_Facebook;
     private TextView editText,tv_Result;

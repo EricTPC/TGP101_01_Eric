@@ -22,4 +22,8 @@
         android:id="@+id/it_Test01"
         android:icon="@drawable/twotone_manage_accounts_20"
         android:title="測試專區一" />
+<!--    <item-->
+<!--        android:id="@+id/it_Test02"-->
+<!--        android:icon="@drawable/twotone_manage_accounts_20"-->
+<!--        android:title="測試專區二" />-->
 </menu>

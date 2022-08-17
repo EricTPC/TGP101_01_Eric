@@ -25,29 +25,18 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_Att_Project"
         android:layout_width="0dp"
-        android:layout_height="00dp"
+        android:layout_height="wrap_content"
         android:layout_margin="6dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/att_SearchView">
+        app:layout_constraintTop_toBottomOf="@id/att_SearchView">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="這是專案列表"
-            android:textSize="60sp"
-            android:visibility="gone"
-            tools:layout_editor_absoluteX="25dp"
-            tools:layout_editor_absoluteY="261dp" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"

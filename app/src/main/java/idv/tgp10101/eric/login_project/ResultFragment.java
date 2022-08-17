@@ -1,7 +1,11 @@
 package idv.tgp10101.eric.login_project;
 
+import static idv.tgp10101.eric.util.Constants.PREFERENCES_FILE;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -23,27 +28,46 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import idv.tgp10101.eric.MainActivity;
 import idv.tgp10101.eric.MainActivity2;
+import idv.tgp10101.eric.MemberUser;
 import idv.tgp10101.eric.R;
 
 
 public class ResultFragment extends Fragment {
     private static final String TAG = "TAG_ResultFragment";
+    private SharedPreferences sharedPreferences;
     private Activity activity;
     private Button bt_SignOut_Google,bt_SignOut_Facebook;
     private TextView editText,tv_Result;
     private Bundle bundle;
     private TextView textView;
     private FirebaseAuth auth;
+    private FirebaseFirestore db;
+    private FirebaseStorage storage;
+    private List<MemberUser> memberUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        auth = FirebaseAuth.getInstance();
+
+        // =========================================== Firebase =========================================== //
         bundle = getArguments();
         activity = getActivity();
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        activity = getActivity();
+        memberUser = new ArrayList<>();
+        sharedPreferences = activity.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
+        addOrReplace();
+        // =========================================== Firebase =========================================== //
     }
 
     @Override
@@ -63,7 +87,7 @@ public class ResultFragment extends Fragment {
     }
 
     private void haneleTvResult() {
-        tv_Result.setText(" Welcome!! \n 敬愛的" + bundle.getString("nickname") +"");
+        tv_Result.setText(" Welcome!! \n 敬愛的" + sharedPreferences.getString("會員名字",null) +"");
         tv_Result.setOnClickListener( view -> {
             Intent intent = new Intent();
             intent.setClass(activity, MainActivity2.class);
@@ -112,7 +136,49 @@ public class ResultFragment extends Fragment {
         Log.d(TAG, "Signed out");
     }
 
+    private void addOrReplace() {
+        FirebaseUser user_1 = auth.getCurrentUser();
+        String user_UID = user_1.getUid();
+        db.collection("MemberUsers").document(user_UID).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        MemberUser loginUser = task.getResult().toObject(MemberUser.class);
+                        savePreferences("會員名字" , loginUser.getUsername() );
+                        Log.e(TAG, "savePreferences(\"會員名字\" , loginUser.getUsername() );" + loginUser.getUsername());
+                        Log.e(TAG, "savePreferences(\"會員名字\" , sharedPreferences );" + sharedPreferences.getString("會員名字","會員名字"));
+                        savePreferences("會員UID",  loginUser.getUid());
+                        savePreferences("會員登入類別" , loginUser.getUserloginclass() );
+                        savePreferences("會員大頭照" , loginUser.getUserimage() );
+                        savePreferences("會員名字" , loginUser.getUsername() );
+                        savePreferences("會員信箱" , loginUser.getEmail() );
+                        savePreferences("會員密碼" , loginUser.getPassword() );
+                        savePreferences("會員手機號碼" , loginUser.getPhone() );
+                        savePreferences("會員地址" , loginUser.getAddress() );
+                        savePreferences("會員是否在線上" , loginUser.getOnline() );
+                        savePreferences("會員等級" , loginUser.getLevel() );
+                        savePreferences("會員是否付費" , loginUser.getVippay() );
+                        savePreferences("VIP會員等級" , loginUser.getViplevel() );
+                        savePreferences("會員Token" , loginUser.getUsertoken() );
+                    } else {
+                        String message = task.getException() == null ?
+                                getString(R.string.textInsertFail) :
+                                task.getException().getMessage();
+                        Log.e(TAG, "message: " + message);
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
+    private void savePreferences(String key , String value) {
+        sharedPreferences
+                // 開始編輯
+                .edit()
+                // 寫出資料
+                .putString( key, value)
+                // 存檔
+                .apply();
+
+    }
 //    @Override
 //    public void onStart() {
 //        super.onStart();

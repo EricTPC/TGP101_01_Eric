@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,12 +44,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.yalantis.ucrop.UCrop;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,6 +70,7 @@ public class TakePictureFragment extends Fragment {
     private static final String TAG = "TAG_TakePictureFragment";
     private static final String FILENAME = "Attractions";
     private Activity activity;
+    private SharedPreferences sharedPreferences;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
@@ -76,13 +85,16 @@ public class TakePictureFragment extends Fragment {
     private Uri contentUri; // 拍照需要的Uri
     private Uri cropImageUri; // 截圖的Uri
     private boolean pictureTaken;
-    private File file;
+    private File file,cropImageUritoFile;
     private Attractions attractions;
     private Handler mHandler;
     private RecyclerView rv_Att_Pic;
     private Resources resources;
+    private List<String> tempList = new ArrayList<>();
     private List<String> attList = new ArrayList<>();
     private int rv_position;
+    private String temp;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,6 +123,20 @@ public class TakePictureFragment extends Fragment {
         handleButton();
         load();
         handleRecyclerView();
+
+        if (getArguments() != null) {
+            attractions = (Attractions) getArguments().getSerializable("attractions");
+            if (attractions != null) {
+
+                et_TakePic_Name.setText(attractions.getTakePic_Title());
+                et_TakePic_Des.setText(attractions.getTakePic_Des());
+
+//                // 如果存有圖片路徑，取得圖片後顯示
+//                if (attractions.getTakePic_Image() != null) {
+//                    showImage(ivSpot, spot.getImagePath());
+//                }
+            }
+        }
     }
 
     private ActivityResultLauncher<Intent> getPickPicLauncher2() {
@@ -128,14 +154,19 @@ public class TakePictureFragment extends Fragment {
                 new ActivityResultContracts.StartActivityForResult(),
                 this::cropPictureResult2);
     }
+    //拍照
     private void takePictureResult2(ActivityResult result) {
         if (result.getResultCode() == RESULT_OK) {
+            Log.d(TAG,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + contentUri);
             crop2(contentUri);
         }
     }
+    //選相簿
     private void pickPictureResult2(ActivityResult result) {
         if (result.getResultCode() == RESULT_OK) {
             if (result.getData() != null) {
+                contentUri = result.getData().getData();
+                Log.d(TAG,"CCCCCCCCCCCCCCCCCCCCCCCCCC" + contentUri.toString());
                 crop2(result.getData().getData());
             }
         }
@@ -144,6 +175,7 @@ public class TakePictureFragment extends Fragment {
         File file = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         file = new File(file, "picture_cropped.jpg");
         Uri destinationUri = Uri.fromFile(file);
+
         Intent cropIntent = UCrop.of(sourceImageUri, destinationUri)
 //                .withAspectRatio(16, 9) // 設定裁減比例
 //                .withMaxResultSize(500, 500) // 設定結果尺寸不可超過指定寬高
@@ -157,9 +189,10 @@ public class TakePictureFragment extends Fragment {
             if (cropImageUri != null) {
                 Bitmap bitmap = null;
                 try {
-                    bitmap = BitmapFactory.decodeStream(
-                            requireContext().getContentResolver().openInputStream(cropImageUri));
-                } catch (IOException e) {
+                    bitmap = BitmapFactory.decodeStream(requireContext().getContentResolver().openInputStream(cropImageUri));
+                    cropImageUritoFile = new File(new URI(cropImageUri.toString()));
+                    copyPicture(cropImageUritoFile,file);
+                } catch (IOException | URISyntaxException e) {
                     Log.e(TAG, e.toString());
                 }
                 if (bitmap != null) {
@@ -205,21 +238,14 @@ public class TakePictureFragment extends Fragment {
         attList.add(null);
     }
 
-    private List<String> getAttList() {
-        attList.add(null);
-        attList.add(null);
-        attList.add(null);
-        attList.add(null);
-        return attList;
-    }
     private void cloudsave(){
 
         final String id = db.collection("Attractions").document().getId();
         Log.d(TAG, "id：　" + id) ;
-        attList.add(id);
+//        attList.add(id);
         // 新增 setimagelist(attList)
         attractions.setTakePic_Uid(id);
-        attractions.setTakePic_PicList(attList); // 完畢  物件要存至雲端資料庫
+//        attractions.setTakePic_PicList(attList); // 完畢  物件要存至雲端資料庫
         Log.d(TAG, "attractions.getTakePic_Uid()：　"+ attractions.getTakePic_Uid()) ;
 
         //儲存 標題 文字
@@ -235,16 +261,34 @@ public class TakePictureFragment extends Fragment {
         attractions.setTakePic_PicList(picList);
         Log.d(TAG, "attractions.getTakePic_PicList()：　"+ attractions.getTakePic_PicList()) ;
 
-        final String imagePath = getString(R.string.app_name) + "/images/" + "/" + attractions.getTakePic_Title() +"/"+ attractions.getTakePic_Uid();
+        //建立Storage的圖片儲存路徑 TGP101_01_Eric/ images / 專案名稱(TakePic_Title) / UID.Jpg
+        final String imagePath = getString(R.string.app_name) + "/images/" + attractions.getTakePic_Title() +"/"+ attractions.getTakePic_Uid();
+//        imageRef.putFile(uri); // 非同步上傳指定Uri的檔案
+//        imageRef.putStream(inputStream); // 非同步上傳InputStream資料
+//        imageRef.putByte(byteArray); // 非同步上傳byte[]資料，⼤檔案不建議
+        Log.d(TAG, "messag_attList: " + attList);
+        int count = 0;
 
-        for ( String att: attList ){
-            File uriFile = new File(att);
-            storage.getReference().child(imagePath).putFile(Uri.fromFile(uriFile))
+        for(String attraction : picList) {
+
+             count += 1;
+            Log.d(TAG, "message_attraction:  " + " 取用第 " + count + " 個 " + attraction + " 。 ");
+            if ( attraction == null ){
+                tempList.add(null);
+//                attractions.setTakePic_PicList(tempList);
+                continue;
+            }
+            Log.d(TAG, "message_attraction : " + "目前是第" + count + "個" + attraction + "。");
+            File uriFile = new File(attraction);
+            String imagePath_count = imagePath + count;
+            storage.getReference().child(imagePath_count).putFile(Uri.fromFile(uriFile))
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Log.d(TAG, getString(R.string.textImageUploadSuccess));
-                            // 圖檔新增成功再將圖檔路徑存入spot物件所代表的document內
-                            attractions.setString_Image(imagePath);
+                            // 圖檔新增成功再將圖檔路徑存入attractions物件所代表的document內
+                            tempList.add(imagePath_count);
+//                            attractions.setTakePic_PicList(count-1,imagePath);
+                            Log.e(TAG, "message: " + tempList);
                         } else {
                             String message = task.getException() == null ?
                                     getString(R.string.textImageUploadFail) :
@@ -253,20 +297,22 @@ public class TakePictureFragment extends Fragment {
                             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                         }
                         // 無論圖檔上傳成功或失敗都要將文字資料新增至DB
-//                            addOrReplaceA(attractions);
+                        Log.d(TAG, "tempListtempListtempListtempList : " + tempList);
+                        attractions.setTakePic_PicList(tempList);
+                        addOrReplaceA(attractions);
                     });
         }
-//        if (pictureTaken) {
-//            // document ID成為image path一部分，避免與其他圖檔名稱重複
-//
-////        }else {
-//////            addOrReplaceA(attractions);
-//        }
+//            if (pictureTaken) {
+//                // document ID成為image path一部分，避免與其他圖檔名稱重複
+//            }else {
+//                addOrReplaceA(attractions);
+//            }
+        addOrReplaceA(attractions);
     }
 
     private void addOrReplaceA(final Attractions attractions) {
 //         如果Firestore沒有該ID的Document就建立新的，已經有就更新內容
-        db.collection("Attractions").document(attractions.getTakePic_Uid()).set(attractions)
+        db.collection("Attractions").document(attractions.getTakePic_Title()).set(attractions)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String message = getString(R.string.textInserted)
@@ -274,7 +320,7 @@ public class TakePictureFragment extends Fragment {
                         Log.d(TAG, message);
                         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                         // 新增完畢回上頁
-                        Navigation.findNavController(et_TakePic_Name).popBackStack();
+//                        Navigation.findNavController(et_TakePic_Name).popBackStack();
                     } else {
                         String message = task.getException() == null ?
                                 getString(R.string.textInsertFail) :
@@ -292,17 +338,16 @@ public class TakePictureFragment extends Fragment {
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
         ){
             //儲存 標題 文字
-            final String takePic_Name = String.valueOf(et_TakePic_Name.getText());
-
+            final String takePic_Title = String.valueOf(et_TakePic_Name.getText());
             //儲存 描述 文字
             final String takePic_des = String.valueOf(et_TakePic_Des.getText());
             //儲存 拍照 or 選擇相簿的照片
-            final List<String> picList = attList;
-
-            final Attractions attractions = new Attractions(takePic_Name,takePic_des,picList);
+            final List<String> takePic_PicList = attList;
+            final String TakePic_Image = takePic_PicList.get(0);
+            final Attractions attractions = new Attractions(takePic_Title,takePic_des,takePic_PicList,TakePic_Image);
             oos.writeObject(attractions);
             Toast.makeText(activity, "檔案儲存成功", Toast.LENGTH_SHORT).show();
-            Log.d(TAG,"imageList： " + picList);
+            Log.d(TAG,"imageList： " + takePic_PicList);
         }catch(Exception e) {
             e.printStackTrace();
         }
@@ -314,7 +359,7 @@ public class TakePictureFragment extends Fragment {
                 ObjectInputStream ois = new ObjectInputStream(fis);
              ){
             final Attractions attractions = (Attractions) ois.readObject();
-            et_TakePic_Name.setText(String.valueOf(attractions.getTakePic_Name()));
+            et_TakePic_Name.setText(String.valueOf(attractions.getTakePic_Title()));
             et_TakePic_Des.setText(String.valueOf(attractions.getTakePic_Des()));
 //            MAP{position:filePath}  轉成LIST
             // List 讀取?????
@@ -335,6 +380,22 @@ public class TakePictureFragment extends Fragment {
 //            }
 //            ivPicture.setImageBitmap(bitmap);
         }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void copyPicture(File from , File arrive){
+        try (
+                FileInputStream fis = new FileInputStream(from);
+                BufferedInputStream bis = new BufferedInputStream(fis);
+                FileOutputStream fos = new FileOutputStream(arrive);
+                BufferedOutputStream bos = new BufferedOutputStream(fos)
+        ) {
+            byte[] buffer = new byte[bis.available()];
+            while (bis.read(buffer) != -1) {
+                bos.write(buffer);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -390,15 +451,17 @@ public class TakePictureFragment extends Fragment {
                     } else if (resId == R.id.it_pickPic) {
                         try {
                             // 5. 實例化Intent物件
-                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            Intent intent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             file = createImageFile();
                             // 6. 執行
                             pickPicLauncher2.launch(intent);
+                            //COPY
                             ivPicture = ViewHolder.iv_Pic;
                             rv_position = ViewHolder.getAdapterPosition();
-                        } catch (ActivityNotFoundException  | IOException e) {
+                        } catch (ActivityNotFoundException | IOException e) {
                             Log.e(TAG, e.toString());
                         }
+                        //pickPicLauncher2.launch(intent); COPY file = createImageFile();
                     }
                     return true;
                 });
