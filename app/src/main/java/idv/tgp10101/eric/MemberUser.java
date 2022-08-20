@@ -16,13 +16,13 @@ public class MemberUser implements Serializable {
     private String vippay;          //會員是否在線上       1 = 付費會員 , 2 = 未付費會員
     private String viplevel;        //VIP會員等級       超級VIP = svip , VIP = vip
     private String usertoken;       //會員Token          ( 預設 null )
-
+    private String adminclass;      //管理員代號          ( 預設 "0"一般會員 "1"版主 "2"管理員 )
     public MemberUser() {
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "MemberUser{" +
                 "uid='" + uid + '\'' +
                 ", userloginclass='" + userloginclass + '\'' +
                 ", userimage='" + userimage + '\'' +
@@ -36,6 +36,7 @@ public class MemberUser implements Serializable {
                 ", vippay='" + vippay + '\'' +
                 ", viplevel='" + viplevel + '\'' +
                 ", usertoken='" + usertoken + '\'' +
+                ", adminclass='" + adminclass + '\'' +
                 '}';
     }
 
@@ -53,6 +54,14 @@ public class MemberUser implements Serializable {
         this.vippay = vippay;
         this.viplevel = viplevel;
         this.usertoken = usertoken;
+    }
+
+    public String getAdminclass() {
+        return adminclass;
+    }
+
+    public void setAdminclass(String adminclass) {
+        this.adminclass = adminclass;
     }
 
     public String getUid() {

@@ -47,6 +47,7 @@ public class GpsNavFragment extends Fragment {
     private Geocoder geocoder;
     private Intent intent;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +116,7 @@ public class GpsNavFragment extends Fragment {
         bt_Gps_LocationB.setOnClickListener(view -> location(et_Gps_PlaceB.getText()));
         bt_Gps_StreetA.setOnClickListener(view -> streetView(et_Gps_PlaceA.getText()));
         bt_Gps_StreetB.setOnClickListener(view -> streetView(et_Gps_PlaceB.getText()));
+
         bt_Gps_PlaceBack.setOnClickListener(view -> {
             NavController navController = Navigation.findNavController(view);
             navController.navigate(R.id.action_gpsNav_to_it_Info);

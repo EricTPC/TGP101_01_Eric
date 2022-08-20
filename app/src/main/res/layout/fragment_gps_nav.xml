@@ -28,7 +28,7 @@
         android:hint="請輸入出發地點"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_Gps" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_Gps_note" />
 
     <Button
         android:id="@+id/bt_Gps_LocationA"
@@ -117,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bt_Gps_StreetB" />
 
     <TextView
-        android:id="@+id/textView_Gps"
+        android:id="@+id/tv_Gps_note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="這是導航功能：輸入A地點和B地點"

@@ -65,7 +65,7 @@ public class WelcomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findViews(view);
-//        handleImageview();
+        handleImageview();
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -79,13 +79,13 @@ public class WelcomeFragment extends Fragment {
 
     }
 
-//    private void handleImageview() {
-//        iv_Welcome_Logo.setOnClickListener( view -> {
-//            bundle = new Bundle();
-//            NavController navController = Navigation.findNavController(view);
-//            navController.navigate(R.id.action_welcome_to_login,bundle);
-//        });
-//    }
+    private void handleImageview() {
+        iv_Welcome_Logo.setOnClickListener( view -> {
+            bundle = new Bundle();
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_welcome_to_login,bundle);
+        });
+    }
 
     private void findViews(View view) {
         iv_Welcome_Logo = view.findViewById(R.id.iv_Welcome_Logo);

@@ -45,6 +45,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.Source;
@@ -192,8 +193,37 @@ public class LoginFragment extends Fragment {
                     // 登入成功轉至下頁；失敗則顯示錯誤訊息
                     if (task.isSuccessful()) {
 //                        showAllMemberUsers();
-
-                        bundle = new Bundle();
+                        FirebaseUser user_1 = auth.getCurrentUser();
+                        String user_UID = user_1.getUid();
+                        db.collection("MemberUsers").document(user_UID).get()
+                                .addOnCompleteListener(task02 -> {
+                                    if (task02.isSuccessful()) {
+                                        MemberUser loginUser = task02.getResult().toObject(MemberUser.class);
+                                        savePreferences("會員名字" , loginUser.getUsername() );
+                                        Log.e(TAG, "savePreferences(\"會員名字\" , loginUser.getUsername() );" + loginUser.getUsername());
+                                        Log.e(TAG, "savePreferences(\"會員名字\" , sharedPreferences );" + sharedPreferences.getString("會員名字","會員名字"));
+                                        savePreferences("會員UID",  loginUser.getUid());
+                                        savePreferences("會員登入類別" , loginUser.getUserloginclass() );
+                                        savePreferences("會員大頭照" , loginUser.getUserimage() );
+                                        savePreferences("會員名字" , loginUser.getUsername() );
+                                        savePreferences("會員信箱" , loginUser.getEmail() );
+                                        savePreferences("會員密碼" , loginUser.getPassword() );
+                                        savePreferences("會員手機號碼" , loginUser.getPhone() );
+                                        savePreferences("會員地址" , loginUser.getAddress() );
+                                        savePreferences("會員是否在線上" , loginUser.getOnline() );
+                                        savePreferences("會員等級" , loginUser.getLevel() );
+                                        savePreferences("會員是否付費" , loginUser.getVippay() );
+                                        savePreferences("VIP會員等級" , loginUser.getViplevel() );
+                                        savePreferences("會員Token" , loginUser.getUsertoken() );
+                                        savePreferences("管理員代號" , loginUser.getAdminclass() );
+                                    } else {
+                                        String message = task02.getException() == null ?
+                                                getString(R.string.textInsertFail) :
+                                                task02.getException().getMessage();
+                                        Log.e(TAG, "message: " + message);
+                                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                         Log.d(TAG,"會員memberUsermemberUsermemberUser： " + paser_username);
 //                        bundle.putString("nickname", paser_username  );
 //                        bundle.putStringArray("memberUser",memberUser);
@@ -282,6 +312,8 @@ public class LoginFragment extends Fragment {
 
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
+                    FirebaseUser firebaseUser = task.getResult().getUser();
+                    String uid = task.getResult().getUser().getUid();
                     // 登入成功轉至下頁；失敗則顯示錯誤訊息
 //                    Log.d(TAG, "user_UID： " + user_UID);
 //                    Log.d(TAG, "memberUserclass getuser_UID： " + memberUserclass.getUid());
@@ -304,9 +336,18 @@ public class LoginFragment extends Fragment {
 //                                    });
 //                        }
                     if (task.isSuccessful()) {
-                        FirebaseUser firebaseUser = task.getResult().getUser();
+//                        db.collection("MemberUsers").document(uid).get()
+//                                .addOnCompleteListener(task1 -> {
+//                                   MemberUser userstemp = task1.getResult().toObject(MemberUser.class);
+//                                    for (DocumentSnapshot document : task1.getResult()) {
+//                                        spots.add(document.toObject(Spot.class));
+//                                    }
+//                                   if (userstemp.getUsername() != null) {
+//                                   }
+//                                });
+
                         if (firebaseUser != null) {
-                            String uid = task.getResult().getUser().getUid();
+
                             MemberUser memberUser22 = new MemberUser();
                             memberUser22.setUid(uid);
                             FirebaseFirestore.getInstance()
@@ -405,7 +446,16 @@ public class LoginFragment extends Fragment {
         }
     }
 
+    private void savePreferences(String key , String value) {
+        sharedPreferences
+                // 開始編輯
+                .edit()
+                // 寫出資料
+                .putString( key, value)
+                // 存檔
+                .apply();
 
+    }
 
 
     @Override

@@ -110,7 +110,9 @@ public class TestUseFragment extends Fragment {
                 });
     }
     private void showMyLocation() {
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
             return;
         }
@@ -122,57 +124,57 @@ public class TestUseFragment extends Fragment {
                 LocationServices.getFusedLocationProviderClient(activity);
         // 取得Task<Location>物件: 取得最後記錄位置
         Task<Location> task = fusedLocationClient.getLastLocation();
-        // 註冊/實作 定位成功監聽器
-        task.addOnSuccessListener(location -> {
-            if (location != null) {
-                // 取得緯度
-                final double lat = location.getLatitude();
-                // 取得經度
-                final double lng = location.getLongitude();
-                // 新建CameraPosition物件，並設定細節
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(new LatLng(lat, lng))  // 設定焦點
-                        .zoom(18)       // 設定縮放倍數
-                        .tilt(45)       // 設定傾斜角度
-                        .bearing(90)    // 設定旋轉角度
-                        .build();
-                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); //一般圖
-                googleMap.setTrafficEnabled(true);
-                googleMap.setBuildingsEnabled(true);
-                // 新建CameraUpdate物件
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-                // 使用鏡頭
-                googleMap.animateCamera(cameraUpdate);
-                UiSettings uiSettings = googleMap.getUiSettings();
-                uiSettings.setMyLocationButtonEnabled(true); //顯示位置按鈕
-                uiSettings.setZoomControlsEnabled(true); //縮放按鈕
-                uiSettings.setCompassEnabled(true); //指北針按鈕
-
-            }
-        });
+//        // 註冊/實作 定位成功監聽器
+//        task.addOnSuccessListener(location -> {
+//            if (location != null) {
+//                // 取得緯度
+//                final double lat = location.getLatitude();
+//                // 取得經度
+//                final double lng = location.getLongitude();
+//                // 新建CameraPosition物件，並設定細節
+//                CameraPosition cameraPosition = new CameraPosition.Builder()
+//                        .target(new LatLng(lat, lng))  // 設定焦點
+//                        .zoom(18)       // 設定縮放倍數
+//                        .tilt(45)       // 設定傾斜角度
+//                        .bearing(90)    // 設定旋轉角度
+//                        .build();
+//                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); //一般圖
+//                googleMap.setTrafficEnabled(true);
+//                googleMap.setBuildingsEnabled(true);
+//                // 新建CameraUpdate物件
+//                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+//                // 使用鏡頭
+//                googleMap.animateCamera(cameraUpdate);
+//                UiSettings uiSettings = googleMap.getUiSettings();
+//                uiSettings.setMyLocationButtonEnabled(true); //顯示位置按鈕
+//                uiSettings.setZoomControlsEnabled(true); //縮放按鈕
+//                uiSettings.setCompassEnabled(true); //指北針按鈕
+//
+//            }
+//        });
 //        final Location location = googleMap.getMyLocation();
-//
-//        LatLng latLng = new LatLng(25.0330,121.5654);
-//        CameraPosition cameraPosition = new CameraPosition.Builder()
-//                .target(latLng)
-//                .zoom(18)
-//                .tilt(45)
-//                .bearing(90)
-//                .build();
-//        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-//        googleMap.animateCamera(cameraUpdate);
-////        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN); //地形圖
-////        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE); //衛星圖
-////        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); //衛星圖+地形圖
-//        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); //一般圖
-////        googleMap.setMapType(GoogleMap.MAP_TYPE_NONE);
-//        googleMap.setTrafficEnabled(true);
-//        googleMap.setBuildingsEnabled(true);
-//
-//        UiSettings uiSettings = googleMap.getUiSettings();
-//        uiSettings.setMyLocationButtonEnabled(true); //顯示位置按鈕
-//        uiSettings.setZoomControlsEnabled(true); //縮放按鈕
-//        uiSettings.setCompassEnabled(true); //指北針按鈕
+
+        LatLng latLng = new LatLng(25.0330,121.5654);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)
+                .zoom(18)
+                .tilt(45)
+                .bearing(90)
+                .build();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+        googleMap.animateCamera(cameraUpdate);
+//        googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN); //地形圖
+//        googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE); //衛星圖
+//        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); //衛星圖+地形圖
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); //一般圖
+//        googleMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+        googleMap.setTrafficEnabled(true);
+        googleMap.setBuildingsEnabled(true);
+
+        UiSettings uiSettings = googleMap.getUiSettings();
+        uiSettings.setMyLocationButtonEnabled(true); //顯示位置按鈕
+        uiSettings.setZoomControlsEnabled(true); //縮放按鈕
+        uiSettings.setCompassEnabled(true); //指北針按鈕
 
     }
 
@@ -184,6 +186,7 @@ public class TestUseFragment extends Fragment {
         // 註冊/實作MapView監聽器
         mapView.getMapAsync(googleMap -> {
             this.googleMap = googleMap;
+//            googleMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
             googleMap.setOnMapLongClickListener(this::addMarker);
             googleMap.setOnInfoWindowLongClickListener(Marker::remove);
         } );

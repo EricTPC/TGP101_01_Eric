@@ -2,14 +2,16 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <item
-        android:id="@+id/it_Home"
-        android:icon="@drawable/twotone_maps_home_work_20"
-        android:title="首頁" />
-    <item
-        android:id="@+id/it_Project"
+        android:id="@+id/it_CloudProject"
         android:icon="@drawable/twotone_airplane_ticket_20"
-        android:title="行程規劃" />
+        android:title="共享專案" />
+    <item
+        android:id="@+id/it_SingleProject"
+        android:icon="@drawable/twotone_airplane_ticket_20"
+        android:title="個人專案" />
+
     <item
         android:id="@+id/it_Info"
         android:icon="@drawable/twotone_travel_explore_20"
@@ -19,7 +21,7 @@
         android:icon="@drawable/twotone_manage_accounts_20"
         android:title="會員專區" />
     <item
-        android:id="@+id/it_Test01"
+        android:id="@+id/it_Home"
         android:icon="@drawable/twotone_manage_accounts_20"
         android:title="測試專區一" />
 <!--    <item-->

@@ -11,7 +11,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -34,7 +33,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.ArrayList;
 import java.util.List;
 
-import idv.tgp10101.eric.MainActivity;
 import idv.tgp10101.eric.MainActivity2;
 import idv.tgp10101.eric.MemberUser;
 import idv.tgp10101.eric.R;
@@ -87,7 +85,7 @@ public class ResultFragment extends Fragment {
     }
 
     private void haneleTvResult() {
-        tv_Result.setText(" Welcome!! \n 敬愛的" + sharedPreferences.getString("會員名字",null) +"");
+        tv_Result.setText(" 敬愛的" + sharedPreferences.getString("會員名字",null) +"");
         tv_Result.setOnClickListener( view -> {
             Intent intent = new Intent();
             intent.setClass(activity, MainActivity2.class);
@@ -102,8 +100,6 @@ public class ResultFragment extends Fragment {
     }
 
     private void findviews(View view) {
-        bt_SignOut_Google = view.findViewById(R.id.bt_SignOut_Google);
-        bt_SignOut_Facebook = view.findViewById(R.id.bt_SignOut_Facebook);
         tv_Result = view.findViewById(R.id.tv_Result);
         textView = view.findViewById(R.id.textView);
 
@@ -159,6 +155,7 @@ public class ResultFragment extends Fragment {
                         savePreferences("會員是否付費" , loginUser.getVippay() );
                         savePreferences("VIP會員等級" , loginUser.getViplevel() );
                         savePreferences("會員Token" , loginUser.getUsertoken() );
+                        savePreferences("管理員代號" , loginUser.getAdminclass() );
                     } else {
                         String message = task.getException() == null ?
                                 getString(R.string.textInsertFail) :

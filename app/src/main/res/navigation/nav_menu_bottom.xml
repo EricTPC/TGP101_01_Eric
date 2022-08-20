@@ -3,20 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_menu_bottom"
-    app:startDestination="@id/it_Home">
+    app:startDestination="@id/it_CloudProject">
     <fragment
         android:id="@+id/it_Home"
         android:name="idv.tgp10101.eric.forntpage.forntpage_project.FrontpageFragment"
         android:label="fragment_frontpage"
         tools:layout="@layout/fragment_frontpage" />
     <fragment
-        android:id="@+id/it_Project"
+        android:id="@+id/it_CloudProject"
         android:name="idv.tgp10101.eric.forntpage.trip_project.ProjectListFragment"
         android:label="fragment_project_list"
         tools:layout="@layout/fragment_project_list" >
         <action
-            android:id="@+id/action_it_Project_to_it_Test01"
-            app:destination="@id/it_Test01" />
+            android:id="@+id/action_it_Project_to_update_TakePicture"
+            app:destination="@id/update_TakePictureFragment" />
+        <action
+            android:id="@+id/action_it_Project_to_takePicture"
+            app:destination="@id/takePictureFragment" />
     </fragment>
     <fragment
         android:id="@+id/it_Info"
@@ -29,6 +32,9 @@
         <action
             android:id="@+id/action_it_Info_to_testUse"
             app:destination="@id/testUseFragment" />
+        <action
+            android:id="@+id/action_it_Info_to_gpsMapView"
+            app:destination="@id/gpsMapViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/it_Member"
@@ -42,11 +48,6 @@
             android:id="@+id/action_it_Member_to_memberInfo"
             app:destination="@id/memberInfoFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/it_Test01"
-        android:name="idv.tgp10101.eric.forntpage.trip_project.TakePictureFragment"
-        android:label="fragment_take_picture"
-        tools:layout="@layout/fragment_take_picture" />
     <fragment
         android:id="@+id/friendListFragment"
         android:name="idv.tgp10101.eric.forntpage.members_projrct.FriendListFragment"
@@ -92,4 +93,43 @@
         android:name="idv.tgp10101.eric.forntpage.TestUseFragment"
         android:label="fragment_test_use"
         tools:layout="@layout/fragment_test_use" />
+    <fragment
+        android:id="@+id/update_TakePictureFragment"
+        android:name="idv.tgp10101.eric.forntpage.trip_project.Update_TakePictureFragment"
+        android:label="fragment_update__take_picture"
+        tools:layout="@layout/fragment_update__take_picture" >
+        <action
+            android:id="@+id/action_update_TakePicture_to_it_Project"
+            app:destination="@id/it_CloudProject" />
+    </fragment>
+    <fragment
+        android:id="@+id/gpsMapViewFragment"
+        android:name="idv.tgp10101.eric.forntpage.dataquery_project.GpsMapViewFragment"
+        android:label="fragment_gps_map_view"
+        tools:layout="@layout/fragment_gps_map_view" >
+        <action
+            android:id="@+id/action_gpsMapView_to_it_Info"
+            app:destination="@id/it_Info" />
+    </fragment>
+    <fragment
+        android:id="@+id/it_SingleProject"
+        android:name="idv.tgp10101.eric.forntpage.trip_project.SingleProjectListFragment"
+        android:label="fragment_single_project_list"
+        tools:layout="@layout/fragment_single_project_list" >
+        <action
+            android:id="@+id/action_it_SingleProject_to_takePicture"
+            app:destination="@id/takePictureFragment" />
+        <action
+            android:id="@+id/action_it_SingleProject_to_update_TakePicture"
+            app:destination="@id/update_TakePictureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/takePictureFragment"
+        android:name="idv.tgp10101.eric.forntpage.trip_project.TakePictureFragment"
+        android:label="fragment_take_picture"
+        tools:layout="@layout/fragment_take_picture" >
+        <action
+            android:id="@+id/action_takePicture_to_it_Project"
+            app:destination="@id/it_CloudProject" />
+    </fragment>
 </navigation>

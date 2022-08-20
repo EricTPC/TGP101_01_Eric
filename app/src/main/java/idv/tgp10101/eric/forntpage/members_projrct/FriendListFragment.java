@@ -48,7 +48,7 @@ public class FriendListFragment extends Fragment {
     private FirebaseStorage storage;
     private ListenerRegistration registration;
     private List<Friend> friends;
-    private List<Spot> spots;
+//    private List<Spot> spots;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class FriendListFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         friends = new ArrayList<>();
-        spots = new ArrayList<>();
+//        spots = new ArrayList<>();
 
         listenToSpots();
     }
@@ -144,15 +144,15 @@ public class FriendListFragment extends Fragment {
 
     /** 取得所有景點資訊後顯示 */
     private void showAllSpots() {
-        db.collection("spots").get()
+        db.collection("Friends").get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
                         // 先清除舊資料後再儲存新資料
-                        if (!spots.isEmpty()) {
-                            spots.clear();
+                        if (!friends.isEmpty()) {
+                            friends.clear();
                         }
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            spots.add(document.toObject(Spot.class));
+                            friends.add(document.toObject(Friend.class));
                         }
                         // 顯示景點
                         showSpots();
@@ -175,30 +175,30 @@ public class FriendListFragment extends Fragment {
         // 如果搜尋條件為空字串，就顯示原始資料；否則就顯示搜尋後結果
         String queryStr = searchView.getQuery().toString();
         if (queryStr.isEmpty()) {
-            spotAdapter.setSpots(spots);
+            spotAdapter.setSpots(friends);
         } else {
-            List<Spot> searchSpots = new ArrayList<>();
+            List<Friend> searchFriends = new ArrayList<>();
             // 搜尋原始資料內有無包含關鍵字(不區別大小寫)
-            for (Spot spot : spots) {
-                if (spot.getName().toUpperCase().contains(queryStr.toUpperCase())) {
-                    searchSpots.add(spot);
+            for (Friend friend : friends) {
+                if (friend.getName().toUpperCase().contains(queryStr.toUpperCase())) {
+                    searchFriends.add(friend);
                 }
             }
-            spotAdapter.setSpots(searchSpots);
+            spotAdapter.setSpots(searchFriends);
         }
         spotAdapter.notifyDataSetChanged();
     }
 
     private class SpotAdapter extends RecyclerView.Adapter<SpotAdapter.SpotViewHolder> {
         List<Friend> friends;
-        List<Spot> spots;
+//        List<Spot> spots;
 
         SpotAdapter() {
-            this.spots = new ArrayList<>();
+            this.friends = new ArrayList<>();
         }
 
-        public void setSpots(List<Spot> spots) {
-            this.spots = spots;
+        public void setSpots(List<Friend> friends) {
+            this.friends = friends;
         }
 
         class SpotViewHolder extends RecyclerView.ViewHolder {
@@ -217,7 +217,7 @@ public class FriendListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return spots.size();
+            return friends.size();
         }
 
         @NonNull
@@ -230,20 +230,29 @@ public class FriendListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull SpotViewHolder holder, int position) {
-            final Spot spot = spots.get(position);
-            if (spot.getImagePath() == null) {
+            final Friend friend = friends.get(position);
+            if (position % 4 == 3) {
+                holder.itemView.setBackgroundColor(getResources().getColor(com.facebook.login.R.color.com_facebook_blue));
+            }else if (position % 4 == 2){
+                holder.itemView.setBackgroundColor(getResources().getColor(R.color.teal_200));
+            }else if(position % 4 == 1){
+                holder.itemView.setBackgroundColor(getResources().getColor(R.color.purple_200));
+            }else {
+                holder.itemView.setBackgroundColor(getResources().getColor(R.color.primaryColor));
+            }
+            if (friend.getImagePath() == null) {
                 holder.ivSpot.setImageResource(R.drawable.no_image);
             } else {
-                showImage(holder.ivSpot, spot.getImagePath());
+                showImage(holder.ivSpot, friend.getImagePath());
             }
-            holder.tvName.setText(spot.getName());
-            holder.tvPhone.setText(spot.getPhone());
-            holder.tvAddress.setText(spot.getAddress());
-            holder.tvWeb.setText(spot.getWeb());
+            holder.tvName.setText(friend.getName());
+            holder.tvPhone.setText(friend.getPhone());
+            holder.tvAddress.setText(friend.getEmail());
+            holder.tvWeb.setText(friend.getWeb());
             // 點選會開啟修改頁面
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("spot", spot);
+                bundle.putSerializable("friend", friend);
                 Navigation.findNavController(v)
                         .navigate(R.id.action_friendList_to_friendUpdate, bundle);
             });
@@ -251,19 +260,19 @@ public class FriendListFragment extends Fragment {
             // 長按刪除資料
             holder.itemView.setOnLongClickListener(v -> {
                 // 刪除Firestore內的景點資料
-                db.collection("spots").document(spot.getId()).delete()
+                db.collection("Friends").document(friend.getId()).delete()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 // 刪除該景點在Firebase storage對應的圖檔
-                                if (spot.getImagePath() != null) {
-                                    storage.getReference().child(spot.getImagePath()).delete()
+                                if (friend.getImagePath() != null) {
+                                    storage.getReference().child(friend.getImagePath()).delete()
                                             .addOnCompleteListener(task1 -> {
                                                 if (task1.isSuccessful()) {
                                                     Log.d(TAG, getString(R.string.textImageDeleted));
                                                 } else {
                                                     String message = task1.getException() == null ?
-                                                            getString(R.string.textImageDeleteFailed) + ": " + spot.getImagePath() :
-                                                            task1.getException().getMessage() + ": " + spot.getImagePath();
+                                                            getString(R.string.textImageDeleteFailed) + ": " + friend.getImagePath() :
+                                                            task1.getException().getMessage() + ": " + friend.getImagePath();
                                                     Log.e(TAG, message);
                                                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                                                 }
@@ -310,22 +319,22 @@ public class FriendListFragment extends Fragment {
      */
     private void listenToSpots() {
         if (registration == null) {
-            registration = db.collection("spots").addSnapshotListener((snapshots, e) -> {
+            registration = db.collection("Friends").addSnapshotListener((snapshots, e) -> {
                 Log.d(TAG, "event happened");
                 if (e == null) {
-                    List<Spot> spots = new ArrayList<>();
+                    List<Friend> friends = new ArrayList<>();
                     if (snapshots != null) {
                         for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                            Spot spot = dc.getDocument().toObject(Spot.class);
+                            Friend friend = dc.getDocument().toObject(Friend.class);
                             switch (dc.getType()) {
                                 case ADDED:
-                                    Log.d(TAG, "Added spot: " + spot.getName());
+                                    Log.d(TAG, "Added spot: " + friend.getName());
                                     break;
                                 case MODIFIED:
-                                    Log.d(TAG, "Modified spot: " + spot.getName());
+                                    Log.d(TAG, "Modified spot: " + friend.getName());
                                     break;
                                 case REMOVED:
-                                    Log.d(TAG, "Removed spot: " + spot.getName());
+                                    Log.d(TAG, "Removed spot: " + friend.getName());
                                     break;
                                 default:
                                     break;
@@ -333,9 +342,9 @@ public class FriendListFragment extends Fragment {
                         }
 
                         for (DocumentSnapshot document : snapshots.getDocuments()) {
-                            spots.add(document.toObject(Spot.class));
+                            friends.add(document.toObject(Friend.class));
                         }
-                        this.spots = spots;
+                        this.friends = friends;
                         showSpots();
                     }
                 } else {

@@ -102,7 +102,8 @@ public class SignFragment extends Fragment {
             memberUser.setViplevel("novip");
             //會員Token = Usertoken ( 預設 "0" )
             memberUser.setUsertoken("0");
-
+            //管理員代號 = Adminclass ( 預設 "0"一般會員 "1"版主 "2"管理員 )
+            memberUser.setAdminclass("0");
 
             Log.d(TAG,"會員UID： " + memberUser.getUid());
             Log.d(TAG,"會員登入類別： " + memberUser.getUserloginclass() );

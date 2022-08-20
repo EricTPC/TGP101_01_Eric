@@ -101,7 +101,11 @@ public class DataqueryFragment extends Fragment {
             navController.navigate(R.id.action_it_Info_to_testUse);
             get_iv_Working01();
         });
-        iv_Working02.setOnClickListener(view -> get_iv_Working02());
+        iv_Working02.setOnClickListener(view -> {
+            NavController navController = Navigation.findNavController(view);
+            navController.navigate(R.id.action_it_Info_to_gpsMapView);
+            get_iv_Working02();
+        });
         iv_Working03.setOnClickListener(view -> get_iv_Working03());
     }
 

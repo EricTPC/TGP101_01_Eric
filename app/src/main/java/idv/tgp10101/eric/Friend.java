@@ -7,6 +7,7 @@ public class Friend implements Serializable {
     private String name;
     private String phone;
     private String email;
+    private String address;
     private String web;
     private String imagePath;
 
@@ -26,6 +27,14 @@ public class Friend implements Serializable {
         this.email = email;
         this.web = web;
         this.imagePath = imagePath;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getId() {

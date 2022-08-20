@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,9 +29,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import idv.tgp10101.eric.MainActivity;
 import idv.tgp10101.eric.MainActivity2;
+import idv.tgp10101.eric.MemberUser;
 import idv.tgp10101.eric.R;
 
 
@@ -37,10 +43,14 @@ public class MemberListFragment extends Fragment {
     private static final String TAG = "TAG_MemberListFragment";
     private SharedPreferences sharedPreferences;
     private Activity activity;
-    private ImageView iv_Person,iv_MemberInfo,iv_Friends,iv_Support,iv_Setting,iv_LogOut,iv_VipProject,iv_MemberClass;
-    private TextView textView,tv_MemberClass,tv_MemberName,tv_MemberInfo,tv_Friends,tv_Support,tv_Setting,tv_LogOut,tv_VipProject;
     private Bundle bundle;
     private FirebaseAuth auth;
+    private FirebaseFirestore db;
+    private FirebaseStorage storage;
+    private ImageView iv_Person,iv_MemberInfo,iv_Friends,iv_Support,iv_Setting,iv_LogOut,iv_VipProject,iv_MemberClass;
+    private TextView textView,tv_MemberClass,tv_MemberName,tv_MemberInfo,tv_Friends,tv_Support,tv_Setting,tv_LogOut,tv_VipProject;
+    private MemberUser memberUser;
+    private String userimage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +58,11 @@ public class MemberListFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         bundle = getArguments();
         activity = getActivity();
+        db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        memberUser = new MemberUser();
         sharedPreferences = activity.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
+        userimage =  sharedPreferences.getString("會員大頭照","111");
 
     }
 
@@ -67,7 +81,9 @@ public class MemberListFragment extends Fragment {
         handleButton();
         tv_MemberName.setText(sharedPreferences.getString("會員名字","111"));
         tv_MemberClass.setText(sharedPreferences.getString("會員等級","111"));
-
+        if (userimage != null) {
+            showImage(iv_Person, userimage);
+        }
     }
 
     private void handleButton() {
@@ -176,5 +192,22 @@ public class MemberListFragment extends Fragment {
     private void get_iv_Friends() {
         Toast.makeText(activity, "功能尚未完成：好友名單編輯。", Toast.LENGTH_SHORT).show();
     }
-
+    private void showImage(final ImageView imageView, final String path) {
+        final int ONE_MEGABYTE = 1024 * 1024 * 20;
+        StorageReference imageRef = storage.getReference().child(path);
+        imageRef.getBytes(ONE_MEGABYTE)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        byte[] bytes = task.getResult();
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        imageView.setImageBitmap(bitmap);
+                    } else {
+                        String message = task.getException() == null ?
+                                getString(R.string.textImageDownloadFail) + ": " + path :
+                                task.getException().getMessage() + ": " + path;
+                        Log.e(TAG, message);
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }

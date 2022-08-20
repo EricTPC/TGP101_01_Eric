@@ -13,7 +13,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/ivSpot"
+            android:id="@+id/iv_insertFriend_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
@@ -26,13 +26,13 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/btTakePicture"
+                android:id="@+id/bt_insertFriend_TakePicture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textTakePicture" />
 
             <Button
-                android:id="@+id/btPickPicture"
+                android:id="@+id/bt_insertFriend_PickPicture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textPickPicture" />
@@ -43,11 +43,11 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etName"
+                android:id="@+id/et_insertFriend_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:hint="@string/textSpotName"
+                android:hint="請輸入好友名稱"
                 android:inputType="text"
                 android:textColor="#0000FF" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -57,11 +57,11 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etPhone"
+                android:id="@+id/et_insertFriend_Phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:hint="@string/textSpotPhone"
+                android:hint="請輸入好友電話"
                 android:inputType="phone"
                 android:textColor="#0000FF" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -71,11 +71,11 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etAddress"
+                android:id="@+id/et_insertFriend_Address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:hint="@string/textSpotAddress"
+                android:hint="請輸入好友地址"
                 android:inputType="text"
                 android:textColor="#0000FF" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -85,11 +85,11 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etWeb"
+                android:id="@+id/et_insertFriend_Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:hint="@string/textSpotWeb"
+                android:hint="請輸入好友信箱"
                 android:inputType="textUri"
                 android:textColor="#0000FF" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -101,13 +101,13 @@
             android:layout_marginTop="3dp">
 
             <Button
-                android:id="@+id/btFinishInsert"
+                android:id="@+id/bt_insertFriend_Ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textInsert" />
 
             <Button
-                android:id="@+id/btCancel"
+                android:id="@+id/bt_insertFriend_Cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textCancel" />

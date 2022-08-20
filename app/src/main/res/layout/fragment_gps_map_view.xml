@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".forntpage.dataquery_project.GpsMapViewFragment">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mv_GpsMapView_mapView"
+        android:layout_width="match_parent"
+        android:layout_height="234dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_GpsMapView_PlaceBack" />
+
+    <TextView
+        android:id="@+id/tv_GpsMapView_PlaceA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="從Ａ地點："
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_GpsMapView_PlaceA"
+        app:layout_constraintEnd_toStartOf="@+id/et_GpsMapView_PlaceA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_GpsMapView_PlaceA" />
+
+    <EditText
+        android:id="@+id/et_GpsMapView_PlaceA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="請輸入出發地點"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GpsMapView_note" />
+
+    <Button
+        android:id="@+id/bt_GpsMapView_LocationA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="A地點 - 地圖顯示"
+        app:layout_constraintEnd_toEndOf="@+id/tv_GpsMapView_PlaceA"
+        app:layout_constraintStart_toStartOf="@+id/tv_GpsMapView_PlaceA"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GpsMapView_PlaceA" />
+
+    <Button
+        android:id="@+id/bt_GpsMapView_StreetA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="A地點 - 街景顯示"
+        app:layout_constraintEnd_toEndOf="@+id/et_GpsMapView_PlaceA"
+        app:layout_constraintStart_toStartOf="@+id/et_GpsMapView_PlaceA"
+        app:layout_constraintTop_toBottomOf="@+id/et_GpsMapView_PlaceA" />
+
+    <TextView
+        android:id="@+id/tv_GpsMapView_PlaceB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="至Ｂ地點："
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_GpsMapView_PlaceA"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_GpsMapView_PlaceA"
+        app:layout_constraintTop_toBottomOf="@+id/bt_GpsMapView_LocationA" />
+
+    <EditText
+        android:id="@+id/et_GpsMapView_PlaceB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="請輸入目的地點"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/et_GpsMapView_PlaceA"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/et_GpsMapView_PlaceA"
+        app:layout_constraintTop_toBottomOf="@+id/bt_GpsMapView_StreetA" />
+
+    <Button
+        android:id="@+id/bt_GpsMapView_LocationB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="B地點 - 地圖顯示"
+        app:layout_constraintEnd_toEndOf="@+id/tv_GpsMapView_PlaceB"
+        app:layout_constraintStart_toStartOf="@+id/tv_GpsMapView_PlaceB"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GpsMapView_PlaceB" />
+
+    <Button
+        android:id="@+id/bt_GpsMapView_StreetB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="B地點 - 街景顯示"
+        app:layout_constraintEnd_toEndOf="@+id/et_GpsMapView_PlaceB"
+        app:layout_constraintStart_toStartOf="@+id/et_GpsMapView_PlaceB"
+        app:layout_constraintTop_toBottomOf="@+id/et_GpsMapView_PlaceB" />
+
+    <Button
+        android:id="@+id/bt_GpsMapView_PlaceOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="開始導航"
+        app:layout_constraintEnd_toEndOf="@+id/bt_GpsMapView_LocationB"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="@+id/bt_GpsMapView_LocationB"
+        app:layout_constraintTop_toBottomOf="@+id/bt_GpsMapView_LocationB" />
+
+    <Button
+        android:id="@+id/bt_GpsMapView_PlaceBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="返回"
+        app:layout_constraintEnd_toEndOf="@+id/bt_GpsMapView_StreetB"
+        app:layout_constraintStart_toStartOf="@+id/bt_GpsMapView_StreetB"
+        app:layout_constraintTop_toBottomOf="@+id/bt_GpsMapView_StreetB" />
+
+    <TextView
+        android:id="@+id/tv_GpsMapView_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="這是導航功能：輸入A地點和B地點"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

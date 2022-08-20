@@ -12,7 +12,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/ivSpot"
+            android:id="@+id/iv_updateFriend_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
@@ -25,13 +25,13 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/btTakePicture"
+                android:id="@+id/bt_updateFriend_TakePicture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textTakePicture" />
 
             <Button
-                android:id="@+id/btPickPicture"
+                android:id="@+id/bt_updateFriend_PickPicture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textPickPicture" />
@@ -42,11 +42,11 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etName"
+                android:id="@+id/et_updateFriend_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:hint="@string/textSpotName"
+                android:hint="請輸入好友名稱"
                 android:inputType="text"
                 android:textColor="#0000FF" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -56,25 +56,11 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etWeb"
+                android:id="@+id/et_updateFriend_Phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:hint="@string/textSpotWeb"
-                android:inputType="textUri"
-                android:textColor="#0000FF" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/etPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:hint="@string/textSpotPhone"
+                android:hint="請輸入好友電話"
                 android:inputType="phone"
                 android:textColor="#0000FF" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -84,32 +70,47 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/etAddress"
+                android:id="@+id/et_updateFriend_Address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:hint="@string/textSpotAddress"
+                android:hint="請輸入好友地址"
                 android:inputType="text"
                 android:textColor="#0000FF" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_updateFriend_Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:hint="請輸入好友信箱"
+                android:inputType="textUri"
+                android:textColor="#0000FF" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
-            android:id="@+id/RelativeLayout2"
+            android:id="@+id/RelativeLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp">
 
             <Button
-                android:id="@+id/btFinishUpdate"
+                android:id="@+id/bt_updateFriend_Ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/textUpdate" />
+                android:text="@string/textInsert" />
 
             <Button
-                android:id="@+id/btCancel"
+                android:id="@+id/bt_updateFriend_Cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textCancel" />
+
         </LinearLayout>
     </LinearLayout>
 

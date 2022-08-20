@@ -41,7 +41,6 @@ import java.io.IOException;
 
 import idv.tgp10101.eric.Friend;
 import idv.tgp10101.eric.R;
-import idv.tgp10101.eric.Spot;
 
 
 public class FriendUpdateFragment extends Fragment {
@@ -49,14 +48,15 @@ public class FriendUpdateFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
-    private ImageView ivSpot;
-    private EditText etName, etWeb, etPhone, etAddress;
-    private Button btCancel,btTakePicture,btPickPicture,btFinishInsert;
+    private ImageView iv_updateFriend_image;
+    private Button bt_updateFriend_TakePicture,bt_updateFriend_PickPicture;
+    private EditText et_updateFriend_Name, et_updateFriend_Phone, et_updateFriend_Address,et_updateFriend_Email;
+    private Button bt_updateFriend_Cancel,bt_updateFriend_Ok;
     private File file;
     private Uri contentUri; // 拍照需要的Uri
     private Uri cropImageUri; // 截圖的Uri
     private Friend friend;
-    private Spot spot;
+//    private Spot spot;
     private boolean pictureTaken;
 
     ActivityResultLauncher<Intent> takePictureLauncher = registerForActivityResult(
@@ -108,10 +108,10 @@ public class FriendUpdateFragment extends Fragment {
                     Log.e(TAG, e.toString());
                 }
                 if (bitmap != null) {
-                    ivSpot.setImageBitmap(bitmap);
+                    iv_updateFriend_image.setImageBitmap(bitmap);
                     pictureTaken = true;
                 } else {
-                    ivSpot.setImageResource(R.drawable.no_image);
+                    iv_updateFriend_image.setImageResource(R.drawable.no_image);
                     pictureTaken = false;
                 }
             }
@@ -141,29 +141,81 @@ public class FriendUpdateFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ivSpot = view.findViewById(R.id.ivSpot);
-        etName = view.findViewById(R.id.etName);
-        etPhone = view.findViewById(R.id.etPhone);
-        etAddress = view.findViewById(R.id.etAddress);
-        etWeb = view.findViewById(R.id.etWeb);
+        findViews(view);
+        handletakePicture();
+        handlepickPicture();
+        handleButtom();
 
         if (getArguments() != null) {
-            spot = (Spot) getArguments().getSerializable("spot");
-            if (spot != null) {
-                etName.setText(spot.getName());
-                etPhone.setText(spot.getPhone());
-                etAddress.setText(spot.getAddress());
-                etWeb.setText(spot.getWeb());
-
+            friend = (Friend) getArguments().getSerializable("friend");
+            if (friend != null) {
+                et_updateFriend_Name.setText(friend.getName());
+                et_updateFriend_Phone.setText(friend.getPhone());
+                et_updateFriend_Address.setText(friend.getAddress());
+                et_updateFriend_Email.setText(friend.getEmail());
                 // 如果存有圖片路徑，取得圖片後顯示
-                if (spot.getImagePath() != null) {
-                    showImage(ivSpot, spot.getImagePath());
+                if (friend.getImagePath() != null) {
+                    showImage(iv_updateFriend_image, friend.getImagePath());
                 }
             }
         }
+    }
 
+    private void handleButtom() {
+        bt_updateFriend_Ok.setOnClickListener(v -> {
+            String name = et_updateFriend_Name.getText().toString().trim();
+            if (name.length() <= 0) {
+                Toast.makeText(requireContext(), R.string.textNameIsInvalid,
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String phone = et_updateFriend_Phone.getText().toString().trim();
+            String address = et_updateFriend_Address.getText().toString().trim();
+            String email = et_updateFriend_Email.getText().toString().trim();
 
-        view.findViewById(R.id.btTakePicture).setOnClickListener(v -> {
+            friend.setName(name);
+            friend.setPhone(phone);
+            friend.setAddress(address);
+            friend.setEmail(email);
+
+            // 如果有拍照，上傳至Firebase storage
+            if (pictureTaken) {
+                // document ID成為image path一部分，避免與其他圖檔名稱重複
+                final String imagePath = getString(R.string.app_name) + "/images/" + friend.getId();
+                storage.getReference().child(imagePath).putFile(cropImageUri)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, getString(R.string.textImageUploadSuccess));
+                                // 圖檔新增成功再將圖檔路徑存入spot物件所代表的document內
+                                friend.setImagePath(imagePath);
+                            } else {
+                                String message = task.getException() == null ?
+                                        getString(R.string.textImageUploadFail) :
+                                        task.getException().getMessage();
+                                Log.e(TAG, "message: " + message);
+                                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                            }
+                            // 無論圖檔上傳成功或失敗都要將文字資料新增至DB
+                            addOrReplace(friend);
+                        });
+            } else {
+                addOrReplace(friend);
+            }
+        });
+
+        bt_updateFriend_Cancel.setOnClickListener(v ->
+                Navigation.findNavController(v).popBackStack());
+    }
+
+    private void handlepickPicture() {
+        bt_updateFriend_PickPicture.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            pickPictureLauncher.launch(intent);
+        });
+    }
+    private void handletakePicture() {
+        bt_updateFriend_TakePicture.setOnClickListener(v -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             File dir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
             if (dir != null && !dir.exists()) {
@@ -184,69 +236,33 @@ public class FriendUpdateFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.btPickPicture).setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            pickPictureLauncher.launch(intent);
-        });
-
-        view.findViewById(R.id.btFinishUpdate).setOnClickListener(v -> {
-            String name = etName.getText().toString().trim();
-            if (name.length() <= 0) {
-                Toast.makeText(requireContext(), R.string.textNameIsInvalid,
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
-            String phone = etPhone.getText().toString().trim();
-            String address = etAddress.getText().toString().trim();
-            String web = etWeb.getText().toString().trim();
-
-            spot.setName(name);
-            spot.setPhone(phone);
-            spot.setAddress(address);
-            spot.setWeb(web);
-
-            // 如果有拍照，上傳至Firebase storage
-            if (pictureTaken) {
-                // document ID成為image path一部分，避免與其他圖檔名稱重複
-                final String imagePath = getString(R.string.app_name) + "/images/" + spot.getId();
-                storage.getReference().child(imagePath).putFile(cropImageUri)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, getString(R.string.textImageUploadSuccess));
-                                // 圖檔新增成功再將圖檔路徑存入spot物件所代表的document內
-                                spot.setImagePath(imagePath);
-                            } else {
-                                String message = task.getException() == null ?
-                                        getString(R.string.textImageUploadFail) :
-                                        task.getException().getMessage();
-                                Log.e(TAG, "message: " + message);
-                                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
-                            }
-                            // 無論圖檔上傳成功或失敗都要將文字資料新增至DB
-                            addOrReplace(spot);
-                        });
-            } else {
-                addOrReplace(spot);
-            }
-        });
-
-        view.findViewById(R.id.btCancel).setOnClickListener(v ->
-                Navigation.findNavController(v).popBackStack());
     }
 
+    private void findViews(View view) {
+        iv_updateFriend_image = view.findViewById(R.id.iv_updateFriend_image);
+        et_updateFriend_Name = view.findViewById(R.id.et_updateFriend_Name);
+        et_updateFriend_Phone = view.findViewById(R.id.et_updateFriend_Phone);
+        et_updateFriend_Address = view.findViewById(R.id.et_updateFriend_Address);
+        et_updateFriend_Email = view.findViewById(R.id.et_updateFriend_Email);
+        bt_updateFriend_Cancel = view.findViewById(R.id.bt_updateFriend_Cancel);
+        bt_updateFriend_PickPicture = view.findViewById(R.id.bt_updateFriend_PickPicture);
+        bt_updateFriend_TakePicture = view.findViewById(R.id.bt_updateFriend_TakePicture);
+        bt_updateFriend_Ok = view.findViewById(R.id.bt_updateFriend_Ok);
+    }
+
+
     // 新增或修改Firestore上的景點
-    private void addOrReplace(final Spot spot) {
+    private void addOrReplace(final Friend friend) {
         // 如果Firestore沒有該ID的Document就建立新的，已經有就更新內容
-        db.collection("spots").document(spot.getId()).set(spot)
+        db.collection("Friends").document(friend.getId()).set(friend)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String message = getString(R.string.textInserted)
-                                + " with ID: " + spot.getId();
+                                + " with ID: " + friend.getId();
                         Log.d(TAG, message);
                         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                         // 修改完畢回上頁
-                        Navigation.findNavController(ivSpot).popBackStack();
+                        Navigation.findNavController(iv_updateFriend_image).popBackStack();
                     } else {
                         String message = task.getException() == null ?
                                 getString(R.string.textInsertFail) :
@@ -256,6 +272,7 @@ public class FriendUpdateFragment extends Fragment {
                     }
                 });
     }
+
 
     // 下載Firebase storage的照片並顯示在ImageView上
     private void showImage(final ImageView imageView, final String path) {
