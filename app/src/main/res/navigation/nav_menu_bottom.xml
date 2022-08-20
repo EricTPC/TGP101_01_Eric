@@ -15,11 +15,8 @@
         android:label="fragment_project_list"
         tools:layout="@layout/fragment_project_list" >
         <action
-            android:id="@+id/action_it_Project_to_update_TakePicture"
-            app:destination="@id/update_TakePictureFragment" />
-        <action
-            android:id="@+id/action_it_Project_to_takePicture"
-            app:destination="@id/takePictureFragment" />
+            android:id="@+id/action_it_CloudProject_to_read_TakePicture"
+            app:destination="@id/read_TakePictureFragment" />
     </fragment>
     <fragment
         android:id="@+id/it_Info"
@@ -99,8 +96,8 @@
         android:label="fragment_update__take_picture"
         tools:layout="@layout/fragment_update__take_picture" >
         <action
-            android:id="@+id/action_update_TakePicture_to_it_Project"
-            app:destination="@id/it_CloudProject" />
+            android:id="@+id/action_update_TakePicture_to_it_SingleProject"
+            app:destination="@id/it_SingleProject" />
     </fragment>
     <fragment
         android:id="@+id/gpsMapViewFragment"
@@ -129,7 +126,16 @@
         android:label="fragment_take_picture"
         tools:layout="@layout/fragment_take_picture" >
         <action
-            android:id="@+id/action_takePicture_to_it_Project"
+            android:id="@+id/action_takePicture_to_it_SingleProject"
+            app:destination="@id/it_SingleProject" />
+    </fragment>
+    <fragment
+        android:id="@+id/read_TakePictureFragment"
+        android:name="idv.tgp10101.eric.forntpage.trip_project.Read_TakePictureFragment"
+        android:label="fragment_read__take_picture"
+        tools:layout="@layout/fragment_read__take_picture" >
+        <action
+            android:id="@+id/action_read_TakePicture_to_it_CloudProject"
             app:destination="@id/it_CloudProject" />
     </fragment>
 </navigation>

@@ -21,17 +21,17 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_UpTakePic_Title"
+                android:id="@+id/tv_TakePic_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:gravity="center"
-                android:text="編輯景點"
+                android:text="新增景點"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/bt_UpTakePic_Save"
+                android:id="@+id/bt_TakePic_Save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.8"
@@ -53,7 +53,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/et_UpTakePic_Name"
+                android:id="@+id/et_TakePic_Name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#92A5EF7C"
@@ -78,7 +78,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/et_UpTakePic_Des"
+                android:id="@+id/et_TakePic_Des"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#E8B9B9"
@@ -96,25 +96,26 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/bt_UpTakePic_NewPic"
+                android:id="@+id/bt_TakePic_NewPic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="=新增照片=" />
 
             <Button
-                android:id="@+id/bt_Up02"
+                android:id="@+id/bt_02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="暫無功能02" />
+                android:text="=暫時存檔=" />
 
-            <Button
-                android:id="@+id/bt_Up03"
+            <CheckBox
+                android:id="@+id/cb_TakePic_Share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="暫無功能03" />
+                android:text="是否分享至共享區" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -125,7 +126,7 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_UpAtt_Pic"
+                android:id="@+id/rv_Att_Pic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal|center_vertical" />
@@ -139,7 +140,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_UpTakePic_Datetime"
+                android:id="@+id/tv_TakePic_Datetime"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="#F9D07E"

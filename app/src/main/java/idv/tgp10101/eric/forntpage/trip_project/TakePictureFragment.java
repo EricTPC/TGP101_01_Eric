@@ -36,6 +36,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -67,7 +68,7 @@ import idv.tgp10101.eric.Attractions;
 import idv.tgp10101.eric.R;
 
 public class TakePictureFragment extends Fragment {
-    private static final String TAG = "TAG_TakePictureFragment";
+    private static final String TAG = "TAG_TakePicture";
     private static final String FILENAME = "Attractions";
     private Activity activity;
     private SharedPreferences sharedPreferences;
@@ -79,6 +80,7 @@ public class TakePictureFragment extends Fragment {
     private TextView textView,tv_TakePic_Datetime;
     private ImageView imageView,ivPicture;
     private EditText editText,et_TakePic_Name,et_TakePic_Des;
+    private CheckBox cb_TakePic_Share;
     private ActivityResultLauncher<Intent> takePicLauncher2;
     private ActivityResultLauncher<Intent> cropPicLauncher2;
     private ActivityResultLauncher<Intent> pickPicLauncher2;
@@ -197,18 +199,18 @@ public class TakePictureFragment extends Fragment {
 
 
     private void findViews(View view) {
-        bt_Save = view.findViewById(R.id.bt_UpTakePic_Save);
-        tv_TakePic_Datetime = view.findViewById(R.id.tv_UpTakePic_Datetime);
-        et_TakePic_Name = view.findViewById(R.id.et_UpTakePic_Name);
-        et_TakePic_Des = view.findViewById(R.id.et_UpTakePic_Des);
-        rv_Att_Pic = view.findViewById(R.id.rv_UpAtt_Pic);
-        bt_TakePic_NewPc = view.findViewById(R.id.bt_UpTakePic_NewPic);
-        bt_02 = view.findViewById(R.id.bt_Up02);
-        bt_03 = view.findViewById(R.id.bt_Up03);
+        bt_Save = view.findViewById(R.id.bt_TakePic_Save);
+        tv_TakePic_Datetime = view.findViewById(R.id.tv_TakePic_Datetime);
+        et_TakePic_Name = view.findViewById(R.id.et_TakePic_Name);
+        et_TakePic_Des = view.findViewById(R.id.et_TakePic_Des);
+        rv_Att_Pic = view.findViewById(R.id.rv_Att_Pic);
+        bt_TakePic_NewPc = view.findViewById(R.id.bt_TakePic_NewPic);
+        bt_02 = view.findViewById(R.id.bt_02);
+        cb_TakePic_Share = view.findViewById(R.id.cb_TakePic_Share);
     }
     private void handleButton() {
-        bt_Save.setOnClickListener(view -> save() );
-        bt_02.setOnClickListener(view -> cloudsave() );
+        bt_Save.setOnClickListener(view -> cloudsave() );
+        bt_02.setOnClickListener(view -> save() );
         // 新增 RecyclerView 內 iv_Pic 的 圖格
         bt_TakePic_NewPc.setOnClickListener( view -> {
             addlist();
@@ -321,7 +323,7 @@ public class TakePictureFragment extends Fragment {
 //            }
         addOrReplaceA(attractions);
         NavController navController = Navigation.findNavController(bt_02);
-        navController.navigate(R.id.action_takePicture_to_it_Project);
+        navController.navigate(R.id.action_takePicture_to_it_SingleProject);
     }
 
     private void addOrReplaceA(final Attractions attractions) {

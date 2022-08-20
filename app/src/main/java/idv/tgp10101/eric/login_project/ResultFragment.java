@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,8 @@ public class ResultFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private Activity activity;
     private Button bt_SignOut_Google,bt_SignOut_Facebook;
-    private TextView editText,tv_Result;
+    private TextView editText,tv_Result,tv_Result2,tv_Result3;
+    private ImageView iv_Result4;
     private Bundle bundle;
     private TextView textView;
     private FirebaseAuth auth;
@@ -80,27 +82,32 @@ public class ResultFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         findviews(view);
         haneleTvResult();
-
-
     }
 
     private void haneleTvResult() {
         tv_Result.setText(" 敬愛的" + sharedPreferences.getString("會員名字",null) +"");
         tv_Result.setOnClickListener( view -> {
-            Intent intent = new Intent();
-            intent.setClass(activity, MainActivity2.class);
-            startActivity(intent);
-            activity.finish();
+            intentNextClass();
 //            NavController navController = Navigation.findNavController(view);
 //            navController.navigate(R.id.action_result_to_takePicture,bundle);
         });
-        bt_SignOut_Google.setOnClickListener( view -> {signOut_Google();});
-        bt_SignOut_Facebook.setOnClickListener( view -> {signOut_Facebook();});
+        tv_Result2.setOnClickListener( view -> intentNextClass());
+        tv_Result3.setOnClickListener( view -> intentNextClass());
+        iv_Result4.setOnClickListener( view -> intentNextClass());
+    }
 
+    private void intentNextClass() {
+        Intent intent = new Intent();
+        intent.setClass(activity, MainActivity2.class);
+        startActivity(intent);
+        activity.finish();
     }
 
     private void findviews(View view) {
         tv_Result = view.findViewById(R.id.tv_Result);
+        tv_Result2 = view.findViewById(R.id.tv_Result2);
+        tv_Result3 = view.findViewById(R.id.tv_Result3);
+        iv_Result4 = view.findViewById(R.id.iv_Result4);
         textView = view.findViewById(R.id.textView);
 
     }

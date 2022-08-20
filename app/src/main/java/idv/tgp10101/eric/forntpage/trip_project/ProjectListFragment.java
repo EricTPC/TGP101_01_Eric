@@ -243,7 +243,7 @@ public class ProjectListFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Attractions", attPic);
                 NavController navController = Navigation.findNavController(view);
-                navController.navigate(R.id.action_it_Project_to_update_TakePicture,bundle);
+                navController.navigate(R.id.action_it_CloudProject_to_read_TakePicture,bundle);
             });
 
             ViewHolder.itemView.setOnLongClickListener(v -> {

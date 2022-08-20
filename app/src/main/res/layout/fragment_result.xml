@@ -12,6 +12,7 @@
         android:id="@+id/tv_Result"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="start"
         android:text="敬愛的："
         android:textSize="34sp"
@@ -24,10 +25,10 @@
         android:id="@+id/tv_Result2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="start"
         android:text="　 　請點擊頁面 \n　 　開啟您的Trip Life。"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/iv_Result"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,20 +38,23 @@
         android:id="@+id/tv_Result3"
         android:layout_width="match_parent"
         android:layout_height="122dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="Welcome"
         android:textSize="60sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_Result"
+        android:id="@+id/iv_Result4"
         android:layout_width="0dp"
         android:layout_height="297dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/_2p888picsjp__1_"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Result2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

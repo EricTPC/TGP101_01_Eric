@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +34,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -64,7 +67,7 @@ import idv.tgp10101.eric.R;
 
 
 public class Update_TakePictureFragment extends Fragment {
-    private static final String TAG = "TAG_TakePictureFragment";
+    private static final String TAG = "TAG_Update_TakePicture";
     private static final String FILENAME = "Attractions";
     private Activity activity;
     private SharedPreferences sharedPreferences;
@@ -76,6 +79,7 @@ public class Update_TakePictureFragment extends Fragment {
     private TextView textView,tv_UpTakePic_Datetime;
     private ImageView imageView,ivPicture,imageView1111;
     private EditText editText,et_UpTakePic_Name,et_UpTakePic_Des;
+    private CheckBox cb_UpTakePic_Share;
     private ActivityResultLauncher<Intent> takePicLauncher2;
     private ActivityResultLauncher<Intent> cropPicLauncher2;
     private ActivityResultLauncher<Intent> pickPicLauncher2;
@@ -222,12 +226,12 @@ public class Update_TakePictureFragment extends Fragment {
         rv_UpAtt_Pic = view.findViewById(R.id.rv_UpAtt_Pic);
         bt_UpTakePic_NewPc = view.findViewById(R.id.bt_UpTakePic_NewPic);
         bt_Up02 = view.findViewById(R.id.bt_Up02);
-        bt_Up03 = view.findViewById(R.id.bt_Up03);
+        cb_UpTakePic_Share = view.findViewById(R.id.cb_UpTakePic_Share);
 //        imageView1111= view.findViewById(R.id.imageView1111);
     }
     private void handleButton() {
-        bt_UpSave.setOnClickListener(view -> save() );
-        bt_Up02.setOnClickListener(view -> cloudsave() );
+        bt_UpSave.setOnClickListener(view -> cloudsave() );
+        bt_Up02.setOnClickListener(view -> save() );
         // 新增 RecyclerView 內 iv_Pic 的 圖格
         bt_UpTakePic_NewPc.setOnClickListener( view -> {
             addlist();
@@ -336,6 +340,8 @@ public class Update_TakePictureFragment extends Fragment {
 //                addOrReplaceA(attractions);
 //            }
         addOrReplaceA(attractions);
+        NavController navController = Navigation.findNavController(bt_UpSave);
+        navController.navigate(R.id.action_update_TakePicture_to_it_SingleProject);
     }
 
     private void addOrReplaceA(final Attractions attractions) {

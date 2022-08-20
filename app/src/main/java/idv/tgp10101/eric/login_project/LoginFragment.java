@@ -157,8 +157,8 @@ public class LoginFragment extends Fragment {
 //        iv_Login_Fb.setOnClickListener( view -> signInFB() );
         iv_Login_Fb.setOnClickListener( view -> workingMessage() );
 //        iv_Login_Twitter.setOnClickListener( view -> testMessage() );
-        iv_Login_Apple.setOnClickListener( view -> testMessage() );
-        iv_Login_Github.setOnClickListener( view -> testMessage() );
+//        iv_Login_Apple.setOnClickListener( view -> testMessage() );
+//        iv_Login_Github.setOnClickListener( view -> testMessage() );
 //        iv_Login_Yahoo.setOnClickListener( view -> testMessage() );
 
 //        iv_Login_Ig.setOnClickListener( view -> testMessage() );
@@ -176,8 +176,6 @@ public class LoginFragment extends Fragment {
         tv_Login_Signup = view.findViewById(R.id.tv_Login_Signup);
         iv_Login_Gmail = view.findViewById(R.id.iv_Login_Gmail);
         iv_Login_Fb = view.findViewById(R.id.iv_Login_Fb);
-        iv_Login_Apple = view.findViewById(R.id.iv_Login_Apple);
-        iv_Login_Github = view.findViewById(R.id.iv_Login_Github);
         textView = view.findViewById(R.id.textView);
 
     }
@@ -347,7 +345,6 @@ public class LoginFragment extends Fragment {
 //                                });
 
                         if (firebaseUser != null) {
-
                             MemberUser memberUser22 = new MemberUser();
                             memberUser22.setUid(uid);
                             FirebaseFirestore.getInstance()

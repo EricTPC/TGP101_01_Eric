@@ -37,20 +37,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_Password" />
 
-    <TextView
-        android:id="@+id/tv_Username"
+    <EditText
+        android:id="@+id/et_Username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:text="UserName："
-        android:textSize="20sp"
-        android:textStyle="normal|bold"
-        app:layout_constraintBottom_toBottomOf="@+id/et_Username"
-        app:layout_constraintEnd_toStartOf="@+id/et_Username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/et_Username" />
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:hint="請輸入使用者名稱"
+        android:text="guest@test.com"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Logo" />
 
     <TextView
         android:id="@+id/tv_Password"
@@ -64,76 +61,69 @@
         app:layout_constraintBottom_toBottomOf="@+id/et_Password"
         app:layout_constraintEnd_toEndOf="@+id/tv_Username"
         app:layout_constraintStart_toStartOf="@+id/tv_Username"
-        app:layout_constraintTop_toTopOf="@+id/et_Password" />
+        app:layout_constraintTop_toTopOf="@+id/et_Password"
+        app:layout_constraintVertical_bias="0.722" />
 
-    <EditText
-        android:id="@+id/et_Username"
+    <TextView
+        android:id="@+id/tv_Username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:hint="請輸入使用者名稱"
-        android:text="guest@test.com"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Signin" />
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="UserName："
+        android:textSize="20sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintBottom_toBottomOf="@+id/et_Username"
+        app:layout_constraintEnd_toStartOf="@+id/et_Username"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_Username" />
 
     <EditText
         android:id="@+id/et_Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="請輸入使用者密碼"
         android:text="123456"
         app:layout_constraintEnd_toEndOf="@+id/et_Username"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/et_Username"
         app:layout_constraintTop_toBottomOf="@+id/et_Username" />
-
-    <TextView
-        android:id="@+id/tv_Signin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:textSize="40dp"
-        android:textStyle="normal|bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Logo" />
 
     <TextView
         android:id="@+id/tv_Login_Signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         android:text="Sign up"
         android:textColor="#FF0000"
         android:textSize="40dp"
         android:textStyle="normal|bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bt_Login"
         app:layout_constraintTop_toBottomOf="@+id/bt_Login" />
 
     <TextView
         android:id="@+id/tv_Login_Forget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
         android:gravity="center"
         android:text="Forget\nPassword?"
         android:textSize="24sp"
         android:textStyle="normal|bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv_Login_Signup"
         app:layout_constraintEnd_toStartOf="@+id/tv_Login_Signup"
-        app:layout_constraintHorizontal_bias="0.351"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_Login_Signup"
-        app:layout_constraintVertical_bias="0.523" />
+        app:layout_constraintTop_toTopOf="@+id/tv_Login_Signup" />
 
     <TextView
         android:id="@+id/tv_Login_Oruse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="-------- Or Use --------"
         android:textSize="24sp"
@@ -146,48 +136,31 @@
         android:id="@+id/iv_Login_Gmail"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/login_gmail"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_Login_Apple"
         app:layout_constraintStart_toStartOf="@+id/tv_Login_Oruse"
-        app:layout_constraintTop_toTopOf="@+id/iv_Login_Apple" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_Login_Oruse" />
 
     <ImageView
         android:id="@+id/iv_Login_Fb"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:src="@drawable/facebook"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_Login_Github"
         app:layout_constraintEnd_toEndOf="@+id/tv_Login_Oruse"
-        app:layout_constraintTop_toTopOf="@+id/iv_Login_Github" />
-
-    <ImageView
-        android:id="@+id/iv_Login_Github"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/github"
-        app:layout_constraintEnd_toStartOf="@+id/iv_Login_Fb"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Login_Oruse" />
-
-    <ImageView
-        android:id="@+id/iv_Login_Apple"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/login_apple"
-        app:layout_constraintStart_toEndOf="@+id/iv_Login_Gmail"
         app:layout_constraintTop_toBottomOf="@+id/tv_Login_Oruse" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="15dp"
+        android:layout_height="44dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/bt_Login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bt_Login"
         app:layout_constraintTop_toTopOf="@+id/bt_Login" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

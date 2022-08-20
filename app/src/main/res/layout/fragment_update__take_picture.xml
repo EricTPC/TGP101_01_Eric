@@ -106,14 +106,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="暫無功能02" />
+                android:text="=暫時存檔=" />
 
-            <Button
-                android:id="@+id/bt_Up03"
+            <CheckBox
+                android:id="@+id/cb_UpTakePic_Share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="暫無功能03" />
+                android:text="是否分享至共享區" />
+
         </LinearLayout>
 
         <LinearLayout
